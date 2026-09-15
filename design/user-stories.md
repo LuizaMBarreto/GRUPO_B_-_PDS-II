@@ -1,0 +1,28 @@
+# User Stories
+
+* User Story 01
+Como jogador, quero poder atacar meu inimigo durante meu turno,
+para diminuir seus pontos de vida.
+
+** Critérios de Aceitação:
+- O jogador deve poder escolher a ação de atacar durante seu turno.
+- O ataque escolhido pelo jogador deve ser executado contra o inimigo selecionado.
+- O ataque deve ter potencial de diminuir os pontos de vida
+do inimigo, tendo um efeito de força equivalente a [ataquejogador - defesainimigo = dano]
+- A força/dano do ataque deve depender dos pontos de experiência (exp) do jogador.
+- Se a força do ataque for maior que a defesa do inimigo ele deve sofrer perdas diretas
+em seus pontos de vida, do contrário, apenas sua defesa sofre danos.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+* User Story 02
+Como jogador quero que meus pontos de experiencia aumentem conforme eu avanço no jogo.
+
+** Critérios de Aceitação:
+- O jogador deve iniciar com uma quantidade mínima de pontos de experiência.
+- O jogador deve receber uma certa quantidade de pontos de experiência ao derrotar um inimigo,
+sendo estes pontos somados sempre a quantidade anterior detida pelo jogador.
+- A quantidade de pontos de experiência recebida pelo jogador ao derrotar um inimigo
+deve considerar a defesa do inimigo.
+- A força de ataque do jogador deve ser determinada pela quantidade de pontos de experiência
+detidos.
+- O jogador deve conseguir consultar a quantidade de experiência acumulada durante o jogo.
