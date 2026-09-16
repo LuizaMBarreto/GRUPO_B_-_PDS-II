@@ -26,3 +26,22 @@ deve considerar a defesa do inimigo.
 - A força de ataque do jogador deve ser determinada pela quantidade de pontos de experiência
 detidos.
 - O jogador deve conseguir consultar a quantidade de experiência acumulada durante o jogo.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+* User Stories 03
+Como sistema de combate, quero que inimigos tenham pontos de vida que diminuem quando sofrem ataques, para que possam ser derrotados 
+
+Critérios de Aceitação:
+- Cada inimigo deve iniciar o combate com uma quantidade máxima de vida baseada em seu nível/tipo.
+- A vida do inimigo deve diminuir conforme recebe ataques, se chegar a 0,  deve ser derrotado e removido do combate.
+- O jogador deve poder visualizar a vida atual e máxima de cada inimigo durante o combate.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+* User Stories 04
+Como desenvolvedor, quero que cada inimigo tenha características próprias 
+
+Critérios de Aceitação:
+- Cada inimigo deve ter um nível de força (baixo, médio ou alto) que determina sua força de ataque.
+- Cada inimigo deve ter um tamanho (pequeno, médio ou grande) que pode influenciar sua vida máxima e defesa.
+- Inimigos do mesmo tipo devem ter as mesmas características base
+- O jogador deve poder visualizar as características de cada inimigo durante o combate (força, tamanho).
