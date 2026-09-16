@@ -45,3 +45,13 @@ Critérios de Aceitação:
 - Cada inimigo deve ter um tamanho (pequeno, médio ou grande) que pode influenciar sua vida máxima e defesa.
 - Inimigos do mesmo tipo devem ter as mesmas características base
 - O jogador deve poder visualizar as características de cada inimigo durante o combate (força, tamanho).
+--------------------------------------------------------------------------------------------------------------------------------------
+
+* User Stories 05
+Como sistema de combate, quero alternar a vez de agir entre o jogador e os inimigos em turnos sequenciais, para garantir uma estrutura organizada de partida.
+
+** Critérios de Aceitação:
+- O sistema deve definir a fila de turnos no início do combate.
+- O turno deve passar para o próximo participante assim que a ação atual for concluída.
+- Os inimigos devem realizar seus ataques automaticamente durante a vez deles.
+- O combate deve ser encerrado imediatamente quando a vida do jogador ou de todos os inimigos chegar a 0.
