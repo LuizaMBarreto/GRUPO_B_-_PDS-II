@@ -1,57 +1,72 @@
-# User Stories
+# User Story 01: Escolha de Ações no Turno
 
-* User Story 01
-Como jogador, quero poder atacar meu inimigo durante meu turno,
-para diminuir seus pontos de vida.
+**Descrição:** Como jogador, quero escolher minha ação durante o meu turno para gerenciar o combate de forma estratégica contra a prova.
 
-** Critérios de Aceitação:
-- O jogador deve poder escolher a ação de atacar durante seu turno.
-- O ataque escolhido pelo jogador deve ser executado contra o inimigo selecionado.
-- O ataque deve ter potencial de diminuir os pontos de vida
-do inimigo, tendo um efeito de força equivalente a [ataquejogador - defesainimigo = dano]
-- A força/dano do ataque deve depender dos pontos de experiência (exp) do jogador.
-- Se a força do ataque for maior que a defesa do inimigo ele deve sofrer perdas diretas
-em seus pontos de vida, do contrário, apenas sua defesa sofre danos.
---------------------------------------------------------------------------------------------------------------------------------------
+**Critérios de Aceitação:**
 
-* User Story 02
-Como jogador quero que meus pontos de experiencia aumentem conforme eu avanço no jogo.
+  - O jogador pode realizar, no máximo, uma ação por turno.
+  - O jogador pode usar uma habilidade para resolver uma questão, consumindo energia proporcionalmente. 
+  - O jogador pode usar um item consumível em si mesmo durante sua vez.
+  - O jogador pode causar dano na prova após resolver uma questão.
+  - O jogador pode escolher livremente a ordem em que resolve as questões disponíveis.
 
-** Critérios de Aceitação:
-- O jogador deve iniciar com uma quantidade mínima de pontos de experiência.
-- O jogador deve receber uma certa quantidade de pontos de experiência ao derrotar um inimigo,
-sendo estes pontos somados sempre a quantidade anterior detida pelo jogador.
-- A quantidade de pontos de experiência recebida pelo jogador ao derrotar um inimigo
-deve considerar a defesa do inimigo.
-- A força de ataque do jogador deve ser determinada pela quantidade de pontos de experiência
-detidos.
-- O jogador deve conseguir consultar a quantidade de experiência acumulada durante o jogo.
---------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+# User Story 02: Visualização de Status do Jogador
+**Descrição:** Como jogador, quero visualizar meus status e recursos para acompanhar meu progresso no semestre e no combate.
 
-* User Stories 03
-Como sistema de combate, quero que inimigos tenham pontos de vida que diminuem quando sofrem ataques, para que possam ser derrotados 
+**Critérios de Aceitação:**
 
-Critérios de Aceitação:
-- Cada inimigo deve iniciar o combate com uma quantidade máxima de vida baseada em seu nível/tipo.
-- A vida do inimigo deve diminuir conforme recebe ataques, se chegar a 0,  deve ser derrotado e removido do combate.
-- O jogador deve poder visualizar a vida atual e máxima de cada inimigo durante o combate.
---------------------------------------------------------------------------------------------------------------------------------------
+  - O jogador pode visualizar seu nível atual de energia e cansaço.
+  - O jogador pode ver o número de questões resolvidas e quantas ainda restam na prova.
+  - O jogador tem acesso à lista de seus itens e suas respectivas quantidades.
+  - O jogador pode visualizar suas habilidades disponíveis e seus efeitos.
+  - O jogador pode visualizar qual prova do semestre está realizando no momento.
 
-* User Stories 04
-Como desenvolvedor, quero que cada inimigo tenha características próprias 
+--------------------------------------------------------------------------------------------------------------------------------------------
+# User Story 03: Características e Bônus das Questões 
+**Descrição:** Como jogador, quero que as questões tenham mecânicas e dificuldades variadas para encarar desafios dinâmicos no combate.
 
-Critérios de Aceitação:
-- Cada inimigo deve ter um nível de força (baixo, médio ou alto) que determina sua força de ataque.
-- Cada inimigo deve ter um tamanho (pequeno, médio ou grande) que pode influenciar sua vida máxima e defesa.
-- Inimigos do mesmo tipo devem ter as mesmas características base
-- O jogador deve poder visualizar as características de cada inimigo durante o combate (força, tamanho).
---------------------------------------------------------------------------------------------------------------------------------------
+**Critérios de Aceitação:**
 
-* User Stories 05
-Como sistema de combate, quero alternar a vez de agir entre o jogador e os inimigos em turnos sequenciais, para garantir uma estrutura organizada de partida.
+  - Cada questão possui habilidades específicas associadas ao seu conteúdo matemático.
+  - As questões são divididas em três categorias distintas de dificuldade.
+  - Questões de maior dificuldade concedem mais pontos/causam mais dano à prova quando resolvidas.
+  - Cada questão possui uma barra de bônus que concede energia extra ao jogador ao ser preenchida.
+  - A questão pode executar ações ou aplicar efeitos no jogador e sobre si mesma.
 
-** Critérios de Aceitação:
-- O sistema deve definir a fila de turnos no início do combate.
-- O turno deve passar para o próximo participante assim que a ação atual for concluída.
-- Os inimigos devem realizar seus ataques automaticamente durante a vez deles.
-- O combate deve ser encerrado imediatamente quando a vida do jogador ou de todos os inimigos chegar a 0.
+--------------------------------------------------------------------------------------------------------------------------------------------
+# User Story 04: Sistema de Turnos e Alternância
+**Descrição:** Como jogador, quero que o combate ocorra em turnos sequenciais estruturados para que as ações sejam organizadas de forma justa.
+
+**Critérios de Aceitação:**
+
+  - O sistema define e exibe a fila de turnos no início do combate.
+  - O turno passa automaticamente para o próximo participante assim que a ação do turno atual é finalizada.
+  - As questões/inimigos realizam seus ataques de forma automática na vez delas.
+  - O sistema exibe comentários/mensagens ao término de cada turno.
+  - O combate encerra imediatamente quando o cansaço do jogador atinge o limite máximo ou todas as questões forem resolvidas.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+# User Story 05: Resolução e Interatividade com as Questões
+**Descrição:** Como jogador, quero interagir com as questões usando habilidades e itens para conseguir resolvê-las corretamente.
+
+**Critérios de Aceitação:**
+
+  - A questão deve ser resolvida mediante o uso apropriado de habilidades do jogador.
+  - O jogador pode utilizar itens do inventário para auxiliar no processo de resolução.
+  - A resolução correta da questão concede ao jogador um bônus para a próxima ação/questão.
+  - O jogo exibe feedbacks ou comentários explicativos durante as ações do jogador.
+  - A questão oferece dicas de resolução quando solicitada ou acionada por itens/habilidades.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+# User Story 06: Estrutura das Provas e Progressão
+**Descrição:** Como jogador, quero avançar através de um conjunto de provas temáticas ao longo do semestre para progredir na partida.
+
+**Critérios de Aceitação:**
+
+  - O jogo é composto por 4 provas (Limite, Derivada, Integral e Prova Geral com todos os assuntos).
+  - Cada questão resolvida causa dano proporcional à pontuação da prova atual.
+  - O jogador pode explorar a sala entre uma prova e outra para coletar novos itens.
+  - A prova é concluída com sucesso quando a barra de vida/pontos da prova é reduzida a zero.
+  - A tentativa de prova falha caso o cansaço/energia do jogador se esgoste antes da conclusão.
+  - Cada questão resolvida causa dano proporcional à pontuação da prova atual.
