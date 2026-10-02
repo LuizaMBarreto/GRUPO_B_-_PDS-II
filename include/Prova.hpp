@@ -6,7 +6,7 @@
 
 /**
 * @file Prova.hpp
-* @brief Resumo da classe prova, seus  atributos e suas habilidades
+* @brief Resumo da classe prova, seus  atributos e suas habilidades.
 */
 
 
