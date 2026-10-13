@@ -1,6 +1,6 @@
 O presente grupo é composto por:
 ° Ana Clara Sanches;
-° Ana Vieira Guerra;
+° Ana Vieira dos Santos Guerra;
 ° Lívia Fernandes;
 ° Luiza Mendes Barreto;
 ° Marcelly Cristine
