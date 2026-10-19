@@ -25,6 +25,7 @@ private:
     bool _resolvida;                    /**< Status de resolução da questão */
     std::string _dica;                  /**< Texto contendo a dica de resolução */
     std::vector<Habilidade> _habilidadesInimigo; /**< Habilidades de ataque da questão */
+    bool _etapaPreviaConcluida;         /**< Indica se o passo preparatório/algébrico foi concluído */
 
 public:
     /**
@@ -62,6 +63,19 @@ public:
      * @return std::string com a dica.
      */
     std::string fornecerDica() const;
+
+    /**
+     * @brief Tenta finalizar a questão definitivamente.
+     *        Se a etapa preparatória foi cumprida, zera a vida e marca como resolvida.
+     * @return true se resolvida com sucesso, false caso contrário.
+     */
+    bool tentarFinalizar();
+
+    /**
+     * @brief Verifica se a questão já está apta para a finalização definitiva.
+     * @return true se o passo prévio foi cumprido.
+     */
+    bool isProntaParaFinalizar() const;
 
     // Getters
     std::string getAssunto() const;

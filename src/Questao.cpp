@@ -10,7 +10,8 @@ int vidaResolucao, std::string dica):
   _vidaResolucao(vidaResolucao),
   _barraBonus(0),
   _resolvida(false),
-  _dica (dica){
+  _dica (dica),
+  _etapaPreviaConcluida(false){
 
 }
 
@@ -60,5 +61,15 @@ void Questao::executarAcaoInimiga(Jogador* jogador){
   (void)jogador;
 }
 
+bool Questao::tentarFinalizar(){
+	if(_etapaPreviaConcluida){
+		_vidaResolucao = 0;
+		_resolvida = true;
+		return true;
+	}
+	return false;
+}
 
+bool Questao::isProntaParaFinalizar() const{
+	return _etapaPreviaConcluida;
 }
