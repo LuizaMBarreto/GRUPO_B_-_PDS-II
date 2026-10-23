@@ -8,7 +8,7 @@ Cada questão segue o **padrão de roteiro do livro de Cálculo (James Stewart)*
 
 ---
 
-## ⚖️ Tabela de Dificuldade e Vida Fixa
+## Tabela de Dificuldade e Vida Fixa
 
 | Nível | Dificuldade Numérica | Vida de Resolução Fixa | Estrutura Típica de Resolução |
 | :---: | :---: | :---: | :--- |
@@ -18,7 +18,7 @@ Cada questão segue o **padrão de roteiro do livro de Cálculo (James Stewart)*
 
 ---
 
-## 📋 Modelo de Preenchimento
+## Modelo de Preenchimento
 
 Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um exercício do Stewart:
 
@@ -29,7 +29,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 * **Enunciado:** [Expressão matemática clara]
 * **Dica (`fornecerDica()`):** [Texto da dica]
 
-#### 📘 Roteiro de Resolução:
+#### Roteiro de Resolução:
 1. **Diagnóstico Inicial:**
    - [Identificação: Ex: Forma indeterminada 0/0, produto de funções, etc.]
 2. **Etapa(s) Preliminar(es) — Técnicas Aplicadas:**
@@ -44,9 +44,9 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
-## 📚 Questões Cadastradas
+## Questões Cadastradas
 
-### 🎯 Prova 1: Limites e Continuidade (P1)
+### Prova 1: Limites e Continuidade (P1)
 
 #### `Q_LIM_01`: Limite Polinomial por Diferença de Quadrados
 * **Prova:** P1 (Limites)
@@ -55,7 +55,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
   $$\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$$
 * **Dica (`fornecerDica()`):** *"O numerador é uma diferença de quadrados: $x^2 - 9 = (x - 3)(x + 3)$."*
 
-##### 📘 Roteiro de Resolução (Stewart Cap. 2):
+##### Roteiro de Resolução (Stewart Cap. 2):
 1. **Diagnóstico Inicial:** A substituição direta com $x = 3$ resulta na forma indeterminada $\frac{0}{0}$. Não podemos aplicar a lei do quociente diretamente.
 2. **Etapa 1 (Técnica: Fatoração de Diferença de Quadrados):**
    - Fatoramos o numerador: $\frac{(x - 3)(x + 3)}{x - 3}$.
@@ -77,7 +77,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
   $$\lim_{t \to 0} \frac{\sqrt{t^2 + 9} - 3}{t^2}$$
 * **Dica (`fornecerDica()`):** *"Multiplique numerador e denominador pela expressão conjugada $(\sqrt{t^2 + 9} + 3)$."*
 
-##### 📘 Roteiro de Resolução (Stewart Cap. 2):
+##### Roteiro de Resolução (Stewart Cap. 2):
 1. **Diagnóstico Inicial:** A substituição direta com $t = 0$ fornece $\frac{\sqrt{9}-3}{0} = \frac{0}{0}$.
 2. **Etapa 1 (Técnica: Multiplicação pelo Conjugado):**
    - Racionalizamos o numerador:
@@ -95,7 +95,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
-### ⚡ Prova 2: Derivadas e Taxas Relacionadas (P2)
+### Prova 2: Derivadas e Taxas Relacionadas (P2)
 
 #### `Q_DER_01`: Derivação com Regra da Cadeia
 * **Prova:** P2 (Derivadas)
@@ -104,7 +104,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
   $$f(x) = (3x^2 - 5x + 2)^4$$
 * **Dica (`fornecerDica()`):** *"Identifique a função externa $u^4$ e a função interna $u = 3x^2 - 5x + 2$. Aplique $\frac{d}{dx}[f(u)] = f'(u) \cdot u'$."*
 
-##### 📘 Roteiro de Resolução (Stewart Cap. 3):
+##### Roteiro de Resolução (Stewart Cap. 3):
 1. **Diagnóstico Inicial:** Função composta do tipo $[g(x)]^n$. Requer a Regra da Cadeia combinada com a Regra da Potência.
 2. **Etapa 1 (Técnica: Diferenciação da Função Externa):**
    - Derivando a parte externa em relação a $u$: $\frac{d}{du}[u^4] = 4u^3 = 4(3x^2 - 5x + 2)^3$.
@@ -121,7 +121,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
-### 🌊 Prova 3: Integrais e Técnicas de Integração (P3)
+### Prova 3: Integrais e Técnicas de Integração (P3)
 
 #### `Q_INT_01`: Integração por Partes Clássica
 * **Prova:** P3 (Integrais)
@@ -130,7 +130,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
   $$\int x \sin(x) \, dx$$
 * **Dica (`fornecerDica()`):** *"Use a regra de partes $\int u \, dv = uv - \int v \, du$, escolhendo $u = x$."*
 
-##### 📘 Roteiro de Resolução (Stewart Cap. 7):
+##### Roteiro de Resolução (Stewart Cap. 7):
 1. **Diagnóstico Inicial:** Produto de uma função polinomial por uma função trigonométrica periódica. Não pode ser resolvida por substituição simples $u$.
 2. **Etapa 1 (Técnica: Escolha de Partes LIATE e Diferenciação):**
    - Escolha: $u = x \implies du = dx$.
@@ -150,6 +150,6 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
-### 🏆 Prova 4: Exame Especial / Prova Geral (P4)
+### Prova 4: Prova Final (P4)
 *(Espaço reservado para as questões mistas +difíceis)*
 
