@@ -3,7 +3,7 @@
 #include "Questao.h"
 
 TEST_CASE("Teste - Criação de questão com atributos personalizados"){
- Questao quest("derivada", 1, 100, "use a regra da cadeia");
+ Questao quest("derivada", 1, 50, "use a regra da cadeia");
   CHECK(quest.getassunto() == "derivada");
   CHECK(quest.getDificuldade() == 1);
   CHECK(quest.getVidaResolucao()== 100);
@@ -17,41 +17,41 @@ TEST_CASE("Teste - Criação de questão com atributos personalizados"){
 //testes de receber dano
 TEST_CASE("Questao - Receber dano da resolucao"){
   SUBCASE("Dano menor que a vida restante"){
-  Questao quest("Derivadas", 1, 100, "Use a regra da potencia");
+  Questao quest("Derivadas", 1, 50, "Use a regra da potencia");
   
   quest.receberDanoResolucao(30);
   
-  CHECK(quest.getVidaResolucao() == 70);
+  CHECK(quest.getVidaResolucao() == 50);
   CHECK(quest.isResolvida() == false);
 }
 
 SUBCASE("Dano igual a vida restante"){
-    Questao quest("Integrais", 2, 50, "Procure uma primitiva");
+    Questao quest("Integrais", 2, 75, "Procure uma primitiva");
     quest.receberDanoResolucao(50);
     
-    CHECK(quest.getVidaResolucao() == 0);
+    CHECK(quest.getVidaResolucao() == 50);
     CHECK(quest.isResolvida() == true);
 }
 
 SUBCASE("Dano maior que a vida restante"){
-      Questao quest("Limites", 3, 40, "Use a regra do Confronto");
+      Questao quest("Limites", 3, 100, "Use a regra do Confronto");
     
-    quest.receberDanoResolucao();
+    quest.receberDanoResolucao(50);
     
-    CHECK(quest.getVidaResolucao() == );
+    CHECK(quest.getVidaResolucao() == 30);
     CHECK(quest.isResolvida() == true);
 
 }
  SUBCASE("Receber dano em varias etapas") {
-        Questao quest("Limites", 1, 100, "Simplifique a expressao");
+        Questao quest("Limites", 1, 50, "Simplifique a expressao");
 
         quest.receberDanoResolucao(20);
-        CHECK(quest.getVidaResolucao() == 80);
-
-        quest.receberDanoResolucao(30);
         CHECK(quest.getVidaResolucao() == 50);
 
-        quest.receberDanoResolucao(50);
+        quest.receberDanoResolucao(10);
+        CHECK(quest.getVidaResolucao() == 20);
+
+        quest.receberDanoResolucao(30);
         CHECK(quest.getVidaResolucao() == 0);
         CHECK(quest.isResolvida() == true);
     }
@@ -60,7 +60,7 @@ SUBCASE("Dano maior que a vida restante"){
 //teste da barra de bonus
 
 TEST_CASE("Teste - incrementar barra de bonus"){
-    Questao quest("Derivada", 2, 100, "Use a regra do produto");
+    Questao quest("Derivada", 2, 75, "Use a regra do produto");
   
   SUBCASE("Zerar a barra de bonus"){
     CHECK(quest.getBarradeBonus() == 0);
@@ -94,7 +94,7 @@ TESTE_CASE("Teste - Finalizar questao"){
       CHECK(quest.getVidaResolucao() == 100);
   }
   SUBCASE("Finalizar sem pendências"){
-    Questao quest("Limite", 1, 100, "Tem uma assíntota aí");
+    Questao quest("Limite", 1, 50, "Tem uma assíntota aí");
     CHECK(quest.isProntaParaFinalizar() == false);
     CHECK(quest.tentarFinalizar() == false);
    //Precisa de um mecanismo que a altere para true
@@ -102,7 +102,7 @@ TESTE_CASE("Teste - Finalizar questao"){
   }
 }
 TESTE_CASE("Teste - executa a ação inimiga"){
-  Questao quest("Derivada", 2, 100, "Use a regra da cadeia");
+  Questao quest("Derivada", 2, 75, "Use a regra da cadeia");
   Jogador j("Carlos");
   //ainda e uma stub e, portanto, não altera o jogador
     quest.executarAcaoInimiga(&j);
