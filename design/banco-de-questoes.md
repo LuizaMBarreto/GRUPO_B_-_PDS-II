@@ -121,6 +121,55 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
+#### `Q_DER_02`: Derivação com Regra do Quociente
+* **Prova:** P2 (Derivadas)
+* **Dificuldade:** Fácil (50 HP)
+* **Enunciado:** Derive a função:
+  $$g(x) = \frac{3x - 1}{2x + 1}$$
+* **Dica (`fornecerDica()`):** *"É um quociente de duas funções. Use a Regra do Quociente: $\left(\frac{f}{g}\right)' = \frac{g f' - f g'}{g^2}$."*
+
+##### Roteiro de Resolução (Stewart Cap. 3):
+1. **Diagnóstico Inicial:** Quociente de duas funções lineares. Não existe simplificação algébrica prévia que elimine a fração, então é preciso usar a regra do quociente. 
+2. **Etapa 1 (Técnica: Aplicação da Regra do Quociente):**
+   - Identificamos o numerador $f(x) = 3x - 1$, com $f'(x) = 3$, e denominador $h(x) = 2x + 1$, com $h'(x) = 2$.
+   - Aplicando a regra $(f/h)' = \frac{h f' - f h'}{h^2}$:
+     $$g'(x) = \frac{(2x + 1) \cdot 3 - (3x - 1) \cdot 2}{(2x + 1)^2}$$
+   - *No Jogo:* Habilidade **"Regra do Quociente"** causa **25 de dano** (Vida: $50 \to 25$) e marca a questão como apta para finalização (`_etapaPreviaConcluida = true`).
+3. **Etapa de Conclusão (Técnica: Simplificação do Numerador):**
+   - Expandindo o numerador: $(6x + 3) - (6x - 2) = 6x + 3 - 6x + 2 = 5$. Os termos em $x$ se cancelam.
+   - Resultado final: $g'(x) = \frac{5}{(2x + 1)^2}$.
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{g'(x) = \frac{5}{(2x + 1)^2}}$.
+4. **Contra-ataque da Questão:**
+   - **Ataque:** *"Derivar Numerador e Denominador Separadamente"* $\rightarrow$ Causa **+10 de Cansaço**
+
+---
+
+### Q_DER_3: Derivada de Produto com Exponencial e Cosseno
+* **Prova:** P2 (Derivadas)
+* **Dificuldade:** Difícil (100 HP)
+* **Enunciado:** Derive a função: $y = e^{-2t} \cos 4t$
+* **Dica (`fornecerDica()`):** "É um produto, então use $(fg)' = f'g + fg'$. Cuidado: as duas derivadas internas pedem Cadeia — o expoente $-2t$ e o argumento $4t$."
+
+#### Roteiro de Resolução (Stewart Cap. 3, Seções 3.2 e 3.4):
+1. **Diagnóstico Inicial:** Produto de uma exponencial composta por um cosseno composto. Exige Regra do Produto por fora e Regra da Cadeia nos dois fatores.
+2. **Etapa 1 (Técnica: Regra do Produto):**
+   - $y' = (e^{-2t})' \cdot \cos 4t + e^{-2t} \cdot (\cos 4t)'$
+   - *No Jogo:* Habilidade **"Regra do Produto"** causa **40 de dano** (Vida: $100 \to 60$).
+3. **Etapa 2 (Técnica: Regra da Cadeia na Exponencial):**
+   - $(e^{-2t})' = -2e^{-2t}$
+   - *No Jogo:* Habilidade **"Regra da Cadeia"** causa **25 de dano** (Vida: $60 \to 35$).
+4. **Etapa 3 (Técnica: Regra da Cadeia no Cosseno):**
+   - $(\cos 4t)' = -4\operatorname{sen} 4t$
+     $$y' = -2e^{-2t}\cos 4t - 4e^{-2t}\operatorname{sen} 4t$$
+   - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **20 de dano** (Vida: $35 \to 15$) e libera a finalização.
+5. **Etapa de Conclusão (Técnica: Fatoração do Termo Comum):**
+   - Colocando $-2e^{-2t}$ em evidência.
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{y' = -2e^{-2t}(\cos 4t + 2\operatorname{sen} 4t)}$
+6. **Contra-ataque da Questão:**
+   - **Ataque:** *"Esquecer o Fator Interno"* $\rightarrow$ Causa **+20 de Cansaço**.
+
 ### Prova 3: Integrais e Técnicas de Integração (P3)
 
 #### `Q_INT_01`: Integração por Partes Clássica
@@ -147,6 +196,34 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Resposta Final:** $\mathbf{-x \cos(x) + \sin(x) + C}$.
 5. **Contra-ataque da Questão:**
    - **Ataque:** *"Troca de Sinal no Cosseno"* $\rightarrow$ Causa **+20 de Cansaço**.
+
+---
+
+#### `Q_INT_02`: Integral por Substituição Simples
+* **Prova:** P3 (Integrais)
+* **Dificuldade:** Média (75 HP)
+* **Enunciado:** Calcule a integral indefinida:
+  $$\int e^x \sqrt{1 + e^x} \, dx$$
+* **Dica (`fornecerDica()`):** *"Use a regra da substituição $\int f(g(x)) \, g'(x) \, dx = \int f(u) \, du$, escolhendo $u = 1 + e^x$."*
+
+##### Roteiro de Resolução (Stewart Cap. 5):
+1. 1. **Diagnóstico Inicial:** Produto de uma função exponencial pela raiz quadrada de 1 + e^x . Não é integral imediata nem se resolve por manipulação algébrica; a substituição só é viável porque e^x dx é exatamente a derivada do radicando.
+2. **Etapa 1 (Técnica: Escolha da Substituição):**
+   - Tomamos $u = 1 + e^x$, a expressão que está dentro da raiz.
+   - Sua diferencial é $du = e^x \, dx$ — exatamente o fator que aparece multiplicando do lado de fora.
+   - Reescrevendo: $\int \sqrt{1 + e^x} \cdot e^x \, dx = \int \sqrt{u} \, du$.
+   - *No Jogo:* Habilidade **"Escolha da Substituição"** causa **30 de dano** (Vida: $75 \to 45$).
+3. **Etapa 2 (Técnica: Regra da Potência para Integração):**
+   - A raiz vira potência fracionária: $\sqrt{u} = u^{1/2}$.
+   - Aplicando $\int u^n du = \frac{u^{n+1}}{n+1}$ com $n = \frac{1}{2}$: $\int u^{1/2} du = \frac{u^{3/2}}{3/2} = \frac{2}{3}u^{3/2}$.
+   - *No Jogo:* Habilidade **"Regra da Potência na Integração"** causa **20 de dano** (Vida: $45 \to 25$) e libera a finalização.
+4. **Etapa de Conclusão (Técnica: Retorno à Variável Original):**
+   - Trocamos $u$ de volta por $1 + e^x$: $\frac{2}{3}(1 + e^x)^{3/2}$.
+   - Somando a constante de integração: $\frac{2}{3}(1 + e^x)^{3/2} + C$.
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{\frac{2}{3}(1 + e^x)^{3/2} + C}$.
+5. **Contra-ataque da Questão:**
+   - **Ataque:** *"Esquecer de Voltar para x"* $\rightarrow$ Causa **+15 de Cansaço**
 
 ---
 
