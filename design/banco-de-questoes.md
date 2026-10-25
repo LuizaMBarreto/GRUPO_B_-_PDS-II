@@ -160,13 +160,13 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - $(e^{-2t})' = -2e^{-2t}$
    - *No Jogo:* Habilidade **"Regra da Cadeia"** causa **25 de dano** (Vida: $60 \to 35$).
 4. **Etapa 3 (Técnica: Regra da Cadeia no Cosseno):**
-   - $(\cos 4t)' = -4\operatorname{sen} 4t$
-     $$y' = -2e^{-2t}\cos 4t - 4e^{-2t}\operatorname{sen} 4t$$
+   - $(\cos 4t)' = -4\mathrm{sen} 4t$
+     $$y' = -2e^{-2t}\cos 4t - 4e^{-2t}\mathrm{sen} 4t$$
    - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **20 de dano** (Vida: $35 \to 15$) e libera a finalização.
 5. **Etapa de Conclusão (Técnica: Fatoração do Termo Comum):**
    - Colocando $-2e^{-2t}$ em evidência.
    - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
-   - **Resposta Final:** $\mathbf{y' = -2e^{-2t}(\cos 4t + 2\operatorname{sen} 4t)}$
+   - **Resposta Final:** $\mathbf{y' = -2e^{-2t}(\cos 4t + 2\mathrm{sen} 4t)}$
 6. **Contra-ataque da Questão:**
    - **Ataque:** *"Esquecer o Fator Interno"* $\rightarrow$ Causa **+20 de Cansaço**.
 
