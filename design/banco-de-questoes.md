@@ -239,11 +239,11 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 ##### Roteiro de Resolução (Stewart Seção 4.4, Ex. 14):
 1. **Diagnóstico Inicial:** A substituição direta com $x = 0$ resulta na forma indeterminada $\frac{0}{0}$ (pois $0^2 = 0$ e $1 - \cos 0 = 0$). Não podemos aplicar a lei do quociente diretamente, mas as condições para a Regra de L'Hôpital estão satisfeitas.
 2. **Etapa 1 (Técnica: 1ª Aplicação de L'Hôpital):**
-   - Derivamos numerador e denominador separadamente: $\lim_{x \to 0} \frac{x^2}{1 - \cos x} = \lim_{x \to 0} \frac{2x}{\operatorname{sen} x}$.
+   - Derivamos numerador e denominador separadamente: $\lim_{x \to 0} \frac{x^2}{1 - \cos x} = \lim_{x \to 0} \frac{2x}{\sin x}$.
    - Ao substituir, obtemos novamente $\frac{0}{0}$. A indeterminação persiste.
    - *No Jogo:* Habilidade **"Regra de L'Hôpital"** causa **30 de dano** (Vida: $75 \to 45$).
 3. **Etapa 2 (Técnica: 2ª Aplicação de L'Hôpital):**
-   - Como a forma $\frac{0}{0}$ continua valendo, aplicamos a regra novamente: $\lim_{x \to 0} \frac{2x}{\operatorname{sen} x} = \lim_{x \to 0} \frac{2}{\cos x}$.
+   - Como a forma $\frac{0}{0}$ continua valendo, aplicamos a regra novamente: $\lim_{x \to 0} \frac{2x}{\sin x} = \lim_{x \to 0} \frac{2}{\cos x}$.
    - *No Jogo:* Habilidade **"Aplicação Repetida"** causa **20 de dano** (Vida: $45 \to 25$) e marca a questão como apta para finalização (`_etapaPreviaConcluida = true`).
 4. **Etapa de Conclusão (Técnica: Substituição Direta):**
    - Agora o denominador não se anula e a função é contínua em $x = 0$: $\lim_{x \to 0} \frac{2}{\cos x} = \frac{2}{\cos 0} = \frac{2}{1} = 2$.
@@ -255,6 +255,6 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ##### Armadilha e Rota Alternativa:
 - **Armadilha:** Se o jogador chamar `tentarFinalizar()` após a Etapa 1, a ação falha enquanto `_etapaPreviaConcluida` for `false`, e ele recebe **+25 de Cansaço**.
-- **Rota alternativa (método elementar):** Multiplicando por $\frac{1 + \cos x}{1 + \cos x}$, o denominador vira $\operatorname{sen}^2 x$ e o limite fica $\left(\frac{x}{\operatorname{sen} x}\right)^2 (1 + \cos x) \to 1 \cdot 2 = 2$. Pode ser modelada como habilidade **"Limite Fundamental"**, que também leva à resposta 2.
+- **Rota alternativa (método elementar):** Multiplicando por $\frac{1 + \cos x}{1 + \cos x}$, o denominador vira $\sin^2 x$ e o limite fica $\left(\frac{x}{\sin x}\right)^2 (1 + \cos x) \to 1 \cdot 2 = 2$. Pode ser modelada como habilidade **"Limite Fundamental"**, que também leva à resposta 2.
 
 
