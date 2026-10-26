@@ -94,6 +94,29 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Ataque:** *"Pegadinha do Conjugado"* $\rightarrow$ Causa **+12 de Cansaço**.
 
 ---
+#### `Q_LIM_03`: Limite Trigonométrico Fundamental
+* **Prova:** P1 (Limites)
+* **Dificuldade:** Difícil (100 HP)
+* **Enunciado:** Calcule o limite: $$\lim_{x \to 0} \frac{\tan(5x)}{\sin(2x)}$$
+* **Dica (`fornecerDica()`):** "Reescreva $\tan(5x)$ como $\frac{\sin(5x)}{\cos(5x)}$ e utilize o limite trigonométrico fundamental $\lim_{u \to 0} \frac{\sin(u)}{u} = 1$ ajustando as constantes dos argumentos."
+
+#### Roteiro de Resolução (Stewart Cap. 2):
+1. **Diagnóstico Inicial:**
+   - A substituição direta com $x = 0$ resulta na forma indeterminada $\frac{0}{0}$. Envolve funções trigonométricas e requer reescrita algébrica para aplicação do limite fundamental.
+2. **Etapa(s) Preliminar(es) — Técnicas Aplicadas:**
+   - **Técnica 1:** Reescrita por Identidades Trigonométricas -> *Identidades Trigonométricas*. Causa 35 de dano (Vida: $100 \to 65$).
+     - **Desenvolvimento:** Substituímos $\tan(5x) = \frac{\sin(5x)}{\cos(5x)}$, obtendo: $$\frac{\sin(5x)}{\cos(5x) \cdot \sin(2x)}$$
+   - **Técnica 2:** Construção das Formas Fundamentais -> *Ajuste de Constantes de Limite*. Causa 35 de dano (Vida: $65 \to 30$).
+     - **Desenvolvimento:** Multiplicamos e dividimos por $5x$ e $2x$: $$\left(\frac{\sin(5x)}{5x}\right) \cdot \left(\frac{2x}{\sin(2x)}\right) \cdot \frac{5x}{2x \cdot \cos(5x)} = \left(\frac{\sin(5x)}{5x}\right) \cdot \left(\frac{2x}{\sin(2x)}\right) \cdot \frac{5}{2\cos(5x)}$$
+   - **Técnica 3:** Aplicação dos Limites Notáveis -> *Limite Fundamental Trigonométrico*. Causa 15 de dano (Vida: $30 \to 15$) e libera a finalização.
+     - **Desenvolvimento:** Como $\lim_{u \to 0} \frac{\sin(u)}{u} = 1$, temos que $\lim_{x \to 0} \frac{\sin(5x)}{5x} = 1$ e $\lim_{x \to 0} \frac{2x}{\sin(2x)} = 1$.
+3. **Etapa de Conclusão / Fechamento:**
+   - **Técnica de Fechamento:** Avaliação dos Limites dos Fatores -> Dispara `tentarFinalizar()`.
+     - **Desenvolvimento:** $1 \cdot 1 \cdot \frac{5}{2 \cos(0)} = 1 \cdot 1 \cdot \frac{5}{2(1)} = \frac{5}{2}$.
+   - **Resposta Final:** $\mathbf{L = \frac{5}{2}}$.
+4. **Contra-ataque da Questão:**
+   - **Ataque:** "Confundir Coeficiente dos Argumentos" -> Causa +22 de Cansaço.
+---
 
 ### Prova 2: Derivadas e Taxas Relacionadas (P2)
 
@@ -145,7 +168,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ---
 
-### Q_DER_3: Derivada de Produto com Exponencial e Cosseno
+#### `Q_DER_3`: Derivada de Produto com Exponencial e Cosseno
 * **Prova:** P2 (Derivadas)
 * **Dificuldade:** Difícil (100 HP)
 * **Enunciado:** Derive a função: $y = e^{-2t} \cos 4t$
@@ -169,6 +192,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Resposta Final:** $\mathbf{y' = -2e^{-2t}(\cos 4t + 2\mathrm{sen} 4t)}$
 6. **Contra-ataque da Questão:**
    - **Ataque:** *"Esquecer o Fator Interno"* $\rightarrow$ Causa **+20 de Cansaço**.
+---
 
 ### Prova 3: Integrais e Técnicas de Integração (P3)
 
@@ -226,6 +250,25 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Ataque:** *"Esquecer de Voltar para x"* $\rightarrow$ Causa **+15 de Cansaço**
 
 ---
+#### `Q_INT_03`: Integral Definida Polinomial
+* **Prova:** P3 (Integrais)
+* **Dificuldade:** Fácil (50 HP)
+* **Enunciado:** Calcule a integral definida: $$\int_{1}^{2} (3x^2 - 2x + 1) \, dx$$
+* **Dica (`fornecerDica()`):** "Encontre a primitiva $F(x)$ utilizando a Regra da Potência e avalie $F(2) - F(1)$ conforme o Teorema Fundamental do Cálculo."
+
+#### Roteiro de Resolução (Stewart Cap. 5):
+1. **Diagnóstico Inicial:**
+   - Integral definida de um polinômio simples. Pode ser calculada diretamente encontrando a antiderivada e aplicando o Teorema Fundamental do Cálculo (TFC II).
+2. **Etapa(s) Preliminar(es) — Técnicas Aplicadas:**
+   - **Técnica 1:** Antidiferenciação por Regra da Potência -> *Regra da Potência para Integração*. Causa 25 de dano (Vida: $50 \to 25$) e marca a questão como apta para finalização (`_etapaPreviaConcluida = true`).
+     - **Desenvolvimento:** Calculamos a primitiva $F(x)$: $$F(x) = 3\left(\frac{x^3}{3}\right) - 2\left(\frac{x^2}{2}\right) + x = x^3 - x^2 + x$$
+3. **Etapa de Conclusão / Fechamento:**
+   - **Técnica de Fechamento:** Avaliação pelo Teorema Fundamental do Cálculo (TFC II) -> Dispara `tentarFinalizar()`.
+     - **Desenvolvimento:** Calculamos $F(2) - F(1)$: $$F(2) = 2^3 - 2^2 + 2 = 8 - 4 + 2 = 6$$ $$F(1) = 1^3 - 1^2 + 1 = 1$$ $$F(2) - F(1) = 6 - 1 = 5$$
+   - **Resposta Final:** $\mathbf{5}$.
+4. **Contra-ataque da Questão:**
+   - **Ataque:** "Erro de Sinal na Subtração do Limite Inferior" -> Causa +10 de Cansaço.
+---
 
 ### Prova 4: Prova Final (P4)
 
@@ -257,4 +300,50 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 - **Armadilha:** Se o jogador chamar `tentarFinalizar()` após a Etapa 1, a ação falha enquanto `_etapaPreviaConcluida` for `false`, e ele recebe **+25 de Cansaço**.
 - **Rota alternativa (método elementar):** Multiplicando por $\frac{1 + \cos x}{1 + \cos x}$, o denominador vira $\sin^2 x$ e o limite fica $\left(\frac{x}{\sin x}\right)^2 (1 + \cos x) \to 1 \cdot 2 = 2$. Pode ser modelada como habilidade **"Limite Fundamental"**, que também leva à resposta 2.
 
+---
 
+#### `Q_P4_02`: Integração por Decomposição em Frações Parciais
+* **Prova:** P4 (Geral)
+* **Dificuldade:** Difícil (100 HP)
+* **Enunciado:** Calcule a integral indefinida: $$\int \frac{5x - 1}{x^2 - 1} \, dx$$
+* **Dica (`fornecerDica()`):** "Fatore o denominador como $(x - 1)(x + 1)$ e decomponha o integrando na soma de frações parciais $\frac{A}{x - 1} + \frac{B}{x + 1}$."
+
+#### Roteiro de Resolução (Stewart Cap. 7):
+1. **Diagnóstico Inicial:**
+   - Função racional onde o grau do numerador (1) é menor que o do denominador (2), e o denominador possui raízes reais distintas. Requer Decomposição em Frações Parciais.
+2. **Etapas Preliminares — Técnicas Aplicadas:**
+   - **Técnica 1:** Fatoração e Estruturação das Frações -> *Decomposição em Frações Parciais*. Causa 35 de dano (Vida: $100 \to 65$).
+     - **Desenvolvimento:** Fatoramos $x^2 - 1 = (x - 1)(x + 1)$: $$\frac{5x - 1}{(x - 1)(x + 1)} = \frac{A}{x - 1} + \frac{B}{x + 1}$$ $$5x - 1 = A(x + 1) + B(x - 1)$$
+   - **Técnica 2:** Determinação das Constantes -> *Resolução de Sistema de Coeficientes*. Causa 30 de dano (Vida: $65 \to 35$).
+     - **Desenvolvimento:** 
+       - Para $x = 1$: $5(1) - 1 = A(1 + 1) + B(0) \implies 4 = 2A \implies A = 2$.
+       - Para $x = -1$: $5(-1) - 1 = A(0) + B(-1 - 1) \implies -6 = -2B \implies B = 3$.
+   - **Técnica 3:** Integração dos Termos Simples -> *Integração Logarítmica*. Causa 15 de dano (Vida: $35 \to 20$) e libera a finalização.
+     - **Desenvolvimento:** $$\int \left( \frac{2}{x - 1} + \frac{3}{x + 1} \right) dx = 2 \ln|x - 1| + 3 \ln|x + 1|$$
+3. **Etapa de Conclusão / Fechamento:**
+   - **Técnica de Fechamento:** Adição da Constante de Integração -> Dispara `tentarFinalizar()`.
+     - **Desenvolvimento:** Unimos os termos e adicionamos a constante $+ C$: $$2 \ln|x - 1| + 3 \ln|x + 1| + C$$
+   - **Resposta Final:** $\mathbf{2 \ln|x - 1| + 3 \ln|x + 1| + C}$.
+4. **Contra-ataque da Questão:**
+   - **Ataque:** "Erro de Sinal ao Encontrar os Coeficientes" -> Causa +20 de Cansaço.
+---
+#### `Q_P4_03`: Derivação Logarítmica de Função Exponencial Composta
+* **Prova:** P4 (Geral)
+* **Dificuldade:** Média (75 HP)
+* **Enunciado:** Encontre a derivada da função: $$y = x^x \quad (x > 0)$$
+* **Dica (`fornecerDica()`):** "Como a variável $x$ está na base e no expoente, aplique o logaritmo natural em ambos os lados ($\ln y = \ln(x^x)$) antes de derivar implicitamente."
+
+#### Roteiro de Resolução (Stewart Cap. 3):
+1. **Diagnóstico Inicial:**
+   - Função do tipo $[f(x)]^{g(x)}$ onde a variável aparece na base e no expoente. Não se aplicam diretamente as regras usuais de potência nem de exponencial pura; exige Derivação Logarítmica.
+2. **Etapas Preliminares — Técnicas Aplicadas:**
+   - **Técnica 1:** Aplicação do Logaritmo e Propriedades -> *Aplicação de Logaritmo Natural*. Causa 35 de dano (Vida: $75 \to 40$).
+     - **Desenvolvimento:** Aplicamos $\ln$ em ambos os lados e usamos a propriedade de potência: $$\ln y = \ln(x^x) \implies \ln y = x \ln x$$
+   - **Técnica 2:** Derivação Implícita e Regra do Produto -> *Derivação Implícita com Regra do Produto*. Causa 20 de dano (Vida: $40 \to 20$) e libera a finalização.
+     - **Desenvolvimento:** Derivando em relação a $x$: $$\frac{1}{y} \cdot y' = \frac{d}{dx}[x] \cdot \ln x + x \cdot \frac{d}{dx}[\ln x]$$ $$\frac{1}{y} \cdot y' = 1 \cdot \ln x + x \cdot \frac{1}{x} = \ln x + 1$$
+3. **Etapa de Conclusão / Fechamento:**
+   - **Técnica de Fechamento:** Isolamento de $y'$ e Substituição -> Dispara `tentarFinalizar()`.
+     - **Desenvolvimento:** Isolamos $y'$ multiplicando por $y = x^x$: $$y' = y(\ln x + 1) = x^x (\ln x + 1)$$
+   - **Resposta Final:** $\mathbf{y' = x^x (\ln x + 1)}$.
+4. **Contra-ataque da Questão:**
+   - **Ataque:** "Tratar como Potência Simples ($x \cdot x^{x-1}$)" -> Causa +18 de Cansaço.
