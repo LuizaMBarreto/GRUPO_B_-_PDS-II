@@ -117,7 +117,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 4. **Contra-ataque da Questão:**
    - **Ataque:** "Confundir Coeficiente dos Argumentos" -> Causa +22 de Cansaço.
 ---
-### 'Q_LIM_03':
+#### 'Q_LIM_04': Limite Trigonométrico
 
 * **Prova:** P1 (Limites)
 * **Dificuldade:** Difícil (100 HP)
@@ -129,7 +129,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 1. **Diagnóstico Inicial:** A substituição direta de $t = 2$ fornece a expressão do tipo $ \frac{2^2 - 4}{3*2^2 - 6*2} = \frac{0}{0}$.
 2. **Etapa 1 (Técnica: Multiplicação pelo Conjugado):**
    - Use diferenciação dos quadrados  no numerador:
-     $$\frac{t^2-4}}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$$
+     $\frac{t^2-4}}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$
    - *No Jogo:* Habilidade **"Diferenciar quadrados"** causa **25 de dano** (Vida: $100 \to 75$).
 3. **Etapa 2 (Técnica: Evidenciação ):**
    - Evidenciamos um termo comum do  denominador .
@@ -140,7 +140,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    -  $$\frac{(t-2)(t+2)}{3t(t - 2)} = \frac{(t+2)}{3t}$$
    - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **15 de dano** (Vida: $65 \to 50$) .
 5.   -  **Etapa 4 (Técnica: Avaliação do Limite):**
-      - Substituímos $t = 2$: $\frac{2 + 2}{\sqrt{3*2} = \frac{4}{6} = \frac{2}{3}$.
+      - Substituímos $$t = 2$: $\frac{2 + 2}{\sqrt{3*2} = \frac{4}{6} = \frac{2}{3}$.
    -
    - *No Jogo:* Habilidade **"Substituição Direta"** causa **35 de dano** (Vida: $50 \to 15$).
 6. **Etapa de Conclusão (Técnica: Avaliação da função trigonométrica):**
@@ -229,7 +229,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Ataque:** *"Esquecer o Fator Interno"* $\rightarrow$ Causa **+20 de Cansaço**.
 ---
 
-#### `Q_DER_04`: Derivada de Produto com Exponencial e Cosseno
+#### `Q_DER_04`: Derivada de Secante com Logaritmo Natural
 * **Prova:** P2 (Derivadas)
 * **Dificuldade:** Fácil (50 HP)
 * **Enunciado:** Derive a função: $y = \ln \sec x$
@@ -332,7 +332,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 4. **Contra-ataque da Questão:**
    - **Ataque:** "Erro de Sinal na Subtração do Limite Inferior" -> Causa +10 de Cansaço.
 ---
-### 'Q_INT_04':
+#### 'Q_INT_04': Integral por Partes e Regra da Potência
 
 * **Prova:** P3 (Integrais)
 * **Dificuldade:** Média (75 HP)
