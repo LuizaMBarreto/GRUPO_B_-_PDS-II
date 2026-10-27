@@ -117,6 +117,41 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 4. **Contra-ataque da Questão:**
    - **Ataque:** "Confundir Coeficiente dos Argumentos" -> Causa +22 de Cansaço.
 ---
+### 'Q_LIM_03':
+
+* **Prova:** P1 (Limites)
+* **Dificuldade:** Difícil (100 HP)
+* **Enunciado:** Calcule o limite:
+  $$\lim_{t \to 2} arctg\frac{t^2 -4} {3t^2 - 6t}$$
+* **Dica (`fornecerDica()`):** *"Calcule o numerador pela diferença dos quadrados e coloque o 3 em evidência no denominador."*
+
+##### Roteiro de Resolução (Stewart Cap. 2):
+1. **Diagnóstico Inicial:** A substituição direta de $t = 2$ fornece a expressão do tipo $ \frac{2^2 - 4}{3*2^2 - 6*2} = \frac{0}{0}$.
+2. **Etapa 1 (Técnica: Multiplicação pelo Conjugado):**
+   - Use diferenciação dos quadrados  no numerador:
+     $$\frac{t^2-4}}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$$
+   - *No Jogo:* Habilidade **"Diferenciar quadrados"** causa **25 de dano** (Vida: $100 \to 75$).
+3. **Etapa 2 (Técnica: Evidenciação ):**
+   - Evidenciamos um termo comum do  denominador .
+   - $$\frac{(t-2)(t+2)}{3t^2-6t} = \frac{(t-2)(t+2)}{3t(t - 2)}$$
+   - *No Jogo:* Habilidade **"Evidenciação"** causa **10 de dano** (Vida: $75 \to 65$).
+4.  -  **Etapa 3 (Técnica: Cancelamento Algébrico):**
+   - Cancelamos o termo $t -2$ no numerador e no denominador
+   -  $$\frac{(t-2)(t+2)}{3t(t - 2)} = \frac{(t+2)}{3t}$$
+   - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **15 de dano** (Vida: $65 \to 50$) .
+5.   -  **Etapa 4 (Técnica: Avaliação do Limite):**
+      - Substituímos $t = 2$: $\frac{2 + 2}{\sqrt{3*2} = \frac{4}{6} = \frac{2}{3}$.
+   -
+   - *No Jogo:* Habilidade **"Substituição Direta"** causa **35 de dano** (Vida: $50 \to 15$).
+6. **Etapa de Conclusão (Técnica: Avaliação da função trigonométrica):**
+   - Substituímos $arctg \frac{t^2-4}{3t^2-6} = arctg\frac{2}{3} = 33,7$.
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{L = 33,7}$.
+7. **Contra-ataque da Questão:**
+   - **Ataque:** *"Cansaço ao Limite"* $\rightarrow$ Causa **+24 de Cansaço**.
+
+
+
 
 ### Prova 2: Derivadas e Taxas Relacionadas (P2)
 
@@ -194,6 +229,34 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Ataque:** *"Esquecer o Fator Interno"* $\rightarrow$ Causa **+20 de Cansaço**.
 ---
 
+#### `Q_DER_04`: Derivada de Produto com Exponencial e Cosseno
+* **Prova:** P2 (Derivadas)
+* **Dificuldade:** Fácil (50 HP)
+* **Enunciado:** Derive a função: $y = \ln \sec x$
+* **Dica (` fornecerDica() `):** *"Use a Regra da Cadeia para o logaritmo natural."*
+
+##### Roteiro de Resolução (Stewart Cap. 3, Seções 3.2 e 3.4):
+1. **Diagnóstico Inicial:** A função é uma composição de um logaritmo natural com uma função secante. Exige a aplicação encadeada da Regra da Cadeia ($\frac{d}{dx}[\ln(f(x))] = \frac{f'(x)}{f(x)}$).
+2. **Etapa 1 (Técnica: Regra da Cadeia):**
+   - Derivamos a função logarítmica externa mantendo o argumento intacto:
+   - $$ y' = \frac{1}{\sec x} \cdot (\sec x)'$$
+   - *No Jogo:* Habilidade **"Regra da Cadeia"** causa **25 de dano** (Vida: $50 \to 25$).
+3. **Etapa 2 (Técnica: Derivada Trigonométrica):**
+   - Calculamos a derivada da função interna $\sec x$, sabendo que $(\sec x)' = \sec x \tan x$:
+   - $$y' = \frac{1}{\sec x} \cdot (\sec x \tan x)$$
+   - *No Jogo:* Habilidade **"Derivada Trigonométrica"** causa ** 15 de dano** (Vida: $25 \to 10$).
+4. **Etapa 3 (Técnica: Simplificação Algébrica):**
+   - Cancelamos o termo $\sec x$ do numerador e do denominador:
+   $$y' = \tan x$$
+   - *No Jogo:* Habilidade **"Simplificação Algébrica"** causa **5 de dano** (Vida: $10\to 5$).
+6. **Etapa de Conclusão (Técnica: Fechamento):**
+   - A derivada simplificada resulta apenas na função tangente
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{y' = \tan x}$
+7. **Contra-ataque da Questão:**
+   - **Ataque:** *"Derivada Angular"* $\rightarrow$ Causa **+19 de Cansaço**.
+---
+
 ### Prova 3: Integrais e Técnicas de Integração (P3)
 
 #### `Q_INT_01`: Integração por Partes Clássica
@@ -269,6 +332,44 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 4. **Contra-ataque da Questão:**
    - **Ataque:** "Erro de Sinal na Subtração do Limite Inferior" -> Causa +10 de Cansaço.
 ---
+### 'Q_INT_04':
+
+* **Prova:** P3 (Integrais)
+* **Dificuldade:** Média (75 HP)
+* **Enunciado:** Calcule a integral definida:
+  $$\int_{1}^{2} (x^5 - \ln x)  \, dx$$
+* **Dica (`fornecerDica()`):** *"Divida a integral em duas partes: utilize a Regra da Potência para $x^5$ e a integração por partes para $\ln x$."*
+
+##### Roteiro de Resolução (Stewart Cap. 2):
+1. **Diagnóstico Inicial:** A integral definida de $(x^5 - \ln x)$ pode ser separada pela Propriedade da linearidade $\int_{1}^{2} x^5 \, dx - \int{1}^{2} \ln x \, dx$ .
+2. **Etapa 1 (Técnica: Regra da Potência):**
+   - Integre o termo polinomial $x^5$:
+   - $$\int x^5 \, dx = \frac{x^6}{6}$$
+   - *No Jogo:* Habilidade **"Regra da Potência"** causa **15 de dano** (Vida: $75 \to 60 $).
+   - 
+3. **Etapa 2 (Técnica: Integração por Partes):**
+   - Resolvemos a integral de $\ln x$ usando partes ($u = \ln x$, $dv = dx \implies du = \frac{1}{x}dx, v = x$):
+   - $$\int \ln x \, dx = x \ln x - \int x \left(\frac{1}{x}\right) dx = x \ln x - x$$
+   - $$ *No Jogo:* Habilidade **Integração por Partes** causa **25 de dano** (Vida: $60 \ to 35$)
+   - 
+   - 
+   - 
+4.  -  **Etapa 3 (Técnica: Cancelamento Algébrico):**
+   - Para $x = 2$:
+   - $$F(2) = \frac{2^6}{6} - 2 \ln 2 + 2 = \frac{64}{6} - 2 \ln 2 + 2 = \frac{32}{3} - 2 \ln 2 + 2 = \frac{38}{3} - 2 \ln 2$$
+   - - Para $x = 1$:
+   $$F(1) = \frac{1^6}{6} - 1 \ln 1 + 1 = \frac{1}{6} - 0 + 1 = \frac{7}{6}$$
+   - *No Jogo:* Habilidade **Avaliação do TFC** causa **25 de dano** (Vida: $35 \ to 5$)
+   - 
+5. **Etapa de Conclusão (Técnica: Subtração Final):**
+   -Calculamos $F(2) - F(1)$:
+ $$\left(\frac{38}{3} - 2\ln 2\right) - \frac{7}{6} = \frac{76}{6} - \frac{7}{6} - 2 \ln 2 = \frac{69}{6} - 2 \ln 2 = \frac{23}{2} - 2 \ln 2$$
+   - *No Jogo:* Ação `tentarFinalizar()` zera a vida restante da questão!
+   - **Resposta Final:** $\mathbf{\frac{23}{2} \ln 2}$.
+6. **Contra-ataque da Questão:**
+   - **Ataque:** *"Amnésia do Termo Linear"* $\rightarrow$ Causa **+16 de Cansaço**.
+
+
 
 ### Prova 4: Prova Final (P4)
 
