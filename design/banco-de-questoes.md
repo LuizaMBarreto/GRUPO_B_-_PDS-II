@@ -272,14 +272,14 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 
 ### Prova 4: Prova Final (P4)
 
-#### `Q_LH_01`: Limite Trigonométrico por L'Hôpital Repetido
+#### `Q_P4_01`: Limite Trigonométrico por L'Hôpital Repetido
 * **Prova:** P4 (Mista)
 * **Dificuldade:** Média (75 HP)
 * **Enunciado:** Calcule o limite:
   $$\lim_{x \to 0} \frac{x^2}{1 - \cos x}$$
 * **Dica (`fornecerDica()`):** *"Se após derivar uma vez a indeterminação continuar, a Regra de L'Hôpital pode ser aplicada novamente."*
 
-##### Roteiro de Resolução (Stewart Seção 4.4, Ex. 14):
+##### Roteiro de Resolução (Stewart Cap. 4):
 1. **Diagnóstico Inicial:** A substituição direta com $x = 0$ resulta na forma indeterminada $\frac{0}{0}$ (pois $0^2 = 0$ e $1 - \cos 0 = 0$). Não podemos aplicar a lei do quociente diretamente, mas as condições para a Regra de L'Hôpital estão satisfeitas.
 2. **Etapa 1 (Técnica: 1ª Aplicação de L'Hôpital):**
    - Derivamos numerador e denominador separadamente: $\lim_{x \to 0} \frac{x^2}{1 - \cos x} = \lim_{x \to 0} \frac{2x}{\sin x}$.
@@ -347,3 +347,42 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - **Resposta Final:** $\mathbf{y' = x^x (\ln x + 1)}$.
 4. **Contra-ataque da Questão:**
    - **Ataque:** "Tratar como Potência Simples ($x \cdot x^{x-1}$)" -> Causa +18 de Cansaço.
+
+---
+
+#### `Q_P4_04`: Integral Definida por Partes Repetida
+* **Prova:** P4 (Geral)
+* **Dificuldade:** Difícil (100 HP)
+* **Enunciado:** Calcule a integral definida:
+  $$\int_1^2 x^4 (\ln x)^2 \, dx$$
+* **Dica (`fornecerDica()`):** *"Use integração por partes escolhendo $u = (\ln x)^2$, pois derivar o logaritmo reduz o grau. Como o resultado ainda terá um $\ln x$, será preciso aplicar partes uma segunda vez."*
+
+##### Roteiro de Resolução (Stewart Cap. 7):
+1. **Diagnóstico Inicial:** Produto de uma potência por o quadrado de um logaritmo, em uma integral definida. Não é integral imediata nem se resolve por substituição simples. Exige Integração por Partes aplicada mais de uma vez e, no fim, a avaliação pelo Teorema Fundamental do Cálculo.
+2. **Etapa 1 (Técnica: Escolha de Partes):**
+   - Escolha: $u = (\ln x)^2 \implies du = \frac{2\ln x}{x}\,dx$.
+   - Diferencial restante: $dv = x^4\,dx \implies v = \frac{x^5}{5}$.
+   - *No Jogo:* Habilidade **"Identificar Partes ($u$ e $dv$)"** causa **30 de dano** (Vida: $100 \to 70$).
+3. **Etapa 2 (Técnica: 1ª Aplicação da Fórmula de Partes):**
+   - Aplicando $uv - \int v \, du$:
+     $$\int x^4 (\ln x)^2\,dx = \frac{x^5}{5}(\ln x)^2 - \frac{2}{5}\int x^4 \ln x\,dx$$
+   - *No Jogo:* Habilidade **"Fórmula da Integração por Partes"** causa **25 de dano** (Vida: $70 \to 45$).
+4. **Etapa 3 (Técnica: 2ª Aplicação de Partes):**
+   - Para $\int x^4 \ln x\,dx$, escolhemos $u = \ln x$ e $dv = x^4\,dx$, o que dá $du = \frac{1}{x}\,dx$ e $v = \frac{x^5}{5}$:
+     $$\int x^4 \ln x\,dx = \frac{x^5}{5}\ln x - \frac{x^5}{25}$$
+   - Substituindo na expressão anterior, a antiderivada completa é:
+     $$F(x) = \frac{x^5}{5}(\ln x)^2 - \frac{2x^5}{25}\ln x + \frac{2x^5}{125}$$
+   - *No Jogo:* Habilidade **"Aplicação Repetida"** causa **20 de dano** (Vida: $45 \to 25$) e marca a questão como apta para finalização (`_etapaPreviaConcluida = true`).
+5. **Etapa de Conclusão (Técnica: Teorema Fundamental do Cálculo):**
+   - Avaliamos $F(2) - F(1)$:
+     $$F(2) = \frac{32}{5}(\ln 2)^2 - \frac{64}{25}\ln 2 + \frac{64}{125}, \qquad F(1) = \frac{2}{125}$$
+   - Subtraindo: $F(2) - F(1) = \frac{32}{5}(\ln 2)^2 - \frac{64}{25}\ln 2 + \frac{62}{125}$.
+   - *No Jogo:* Ação `tentarFinalizar()` é bem-sucedida. A vida vai **direto a 0**!
+   - **Resposta Final:** $\mathbf{\frac{32}{5}(\ln 2)^2 - \frac{64}{25}\ln 2 + \frac{62}{125} \approx 1{,}80}$.
+6. **Contra-ataques da Questão:**
+   - **Ataque 1:** *"Esquecer o Fator 2 do Segundo Termo"* $\rightarrow$ Causa **+20 de Cansaço** (após a Etapa 2, testando se o aluno carrega o coeficiente $\frac{2}{5}$ corretamente).
+   - **Ataque 2:** *"Esquecer de Avaliar em $x = 1$"* $\rightarrow$ Causa **+15 de Cansaço** (na Etapa de Conclusão, pois o termo $F(1) = \frac{2}{125}$ não é zero).
+
+##### Armadilha e Rota Alternativa:
+- **Armadilha:** Se o jogador chamar `tentarFinalizar()` após a Etapa 2, a ação falha enquanto `_etapaPreviaConcluida` for `false`, e ele recebe **+25 de Cansaço**, pois ainda resta uma integral com $\ln x$ a resolver.
+- **Rota alternativa (substituição prévia):** Fazendo $t = \ln x$ (então $x = e^t$ e $dx = e^t\,dt$), a integral vira $\int_0^{\ln 2} t^2 e^{5t}\,dt$, que também exige partes duas vezes e leva ao mesmo resultado. Pode ser modelada como habilidade **"Mudança de Variável"**.
