@@ -1,12 +1,12 @@
 #include "doctest.h"
-#include "Jogador.h"
-#include "Questao.h"
+#include "Jogador.hpp"
+#include "Questao.hpp"
 
 TEST_CASE("Teste - Criação de questão com atributos personalizados"){
  Questao quest("derivada", 1, 50, "use a regra da cadeia");
-  CHECK(quest.getassunto() == "derivada");
+  CHECK(quest.getAssunto() == "derivada");
   CHECK(quest.getDificuldade() == 1);
-  CHECK(quest.getVidaResolucao()== 100);
+  CHECK(quest.getVidaResolucao()== 50);
   CHECK(quest.fornecerDica() == "use a regra da cadeia");
   CHECK(quest.getBarraBonus()== 0);
   CHECK(quest.isResolvida() == false);
@@ -27,18 +27,18 @@ TEST_CASE("Questao - Receber dano da resolucao"){
 
 SUBCASE("Dano igual a vida restante"){
     Questao quest("Integrais", 2, 75, "Procure uma primitiva");
-    quest.receberDanoResolucao(50);
+    quest.receberDanoResolucao(75);
     
-    CHECK(quest.getVidaResolucao() == 50);
+    CHECK(quest.getVidaResolucao() == 75);
     CHECK(quest.isResolvida() == true);
 }
 
 SUBCASE("Dano maior que a vida restante"){
-      Questao quest("Limites", 3, 100, "Use a regra do Confronto");
+      Questao quest("Limites", 2, 75, "Use a regra do Confronto");
     
-    quest.receberDanoResolucao(50);
+    quest.receberDanoResolucao(100);
     
-    CHECK(quest.getVidaResolucao() == 30);
+    CHECK(quest.getVidaResolucao() == 75);
     CHECK(quest.isResolvida() == true);
 
 }
@@ -63,7 +63,7 @@ TEST_CASE("Teste - incrementar barra de bonus"){
     Questao quest("Derivada", 2, 75, "Use a regra do produto");
   
   SUBCASE("Zerar a barra de bonus"){
-    CHECK(quest.getBarradeBonus() == 0);
+    CHECK(quest.getBarraBonus() == 0);
   }
 
   SUBCASE("incrementar bonus uma unica vez"){
@@ -79,13 +79,13 @@ TEST_CASE("Teste - incrementar barra de bonus"){
   } 
 }
 
-  TESTE_CASE("Teste - Fornecimentos de dicas"){
+  TEST_CASE("Teste - Fornecimentos de dicas"){
      Questao quest("Limite", 3, 100, "Tem uma assíntota aí");
-    CHECK(quest.forncercerDica() == "Tem uma assíntota aí");
+    CHECK(quest.fornecerDica() == "Tem uma assíntota aí");
   //faça um subcase caso seja decidido que teremos dicas vazia
 }
 
-TESTE_CASE("Teste - Finalizar questao"){
+TEST_CASE("Teste - Finalizar questao"){
   SUBCASE("Não pode finalizar sem concluir a etapa anterior"){
       Questao quest("Integral", 3, 100, "Tente a substituição trigonométrica");
       CHECK(quest.isProntaParaFinalizar() == false);
@@ -101,7 +101,7 @@ TESTE_CASE("Teste - Finalizar questao"){
   //Provavelmente vamos ter alterar a classe
   }
 }
-TESTE_CASE("Teste - executa a ação inimiga"){
+TEST_CASE("Teste - executa a ação inimiga"){
   Questao quest("Derivada", 2, 75, "Use a regra da cadeia");
   Jogador j("Carlos");
   //ainda e uma stub e, portanto, não altera o jogador
@@ -111,7 +111,7 @@ TESTE_CASE("Teste - executa a ação inimiga"){
     CHECK(quest.isResolvida() == false);
 }
   
-}
+
 
 
 
