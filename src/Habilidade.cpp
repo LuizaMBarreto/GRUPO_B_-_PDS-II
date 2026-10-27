@@ -1,4 +1,6 @@
 #include "Habilidade.hpp"
+#include "Jogador.hpp"
+#include "Questao.hpp"
 #include <iostream>
 
 Habilidade::Habilidade(const std::string& nome, const std::string& descricao, int efeitoValor, bool afetaInimigo)
@@ -21,8 +23,17 @@ bool Habilidade::afetaInimigo() const {
 }
 
 void Habilidade::aplicarEfeito(Jogador& alvo) const {
-    // Stub TDD: Comportamento a ser implementado posteriormente
-    (void)alvo;
+    if (!_afetaInimigo) {
+        // Habilidade de suporte: reduz o cansaço do jogador de acordo com o valor do efeito
+        alvo.alterarCansaco(-_efeitoValor);
+    }
+}
+
+void Habilidade::aplicarEfeito(Questao& alvo) const {
+    if (_afetaInimigo) {
+        // Habilidade ofensiva: causa dano de resolução na questão
+        alvo.receberDanoResolucao(_efeitoValor);
+    }
 }
 
 void Habilidade::exibirDetalhes() const {

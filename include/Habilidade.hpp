@@ -3,6 +3,7 @@
 #include <string>
 
 class Jogador;
+class Questao;
 
 /**
  * @file Habilidade.hpp
@@ -64,10 +65,16 @@ public:
     // --- Métodos de Comportamento ---
 
     /**
-     * @brief Aplica o efeito da habilidade no alvo (Jogador ou Inimigo).
-     * @param alvo Referência ao Jogador afetado ou utilizador.
+     * @brief Aplica o efeito da habilidade no Jogador (ex: redução de cansaço).
+     * @param alvo Referência ao Jogador afetado.
      */
     void aplicarEfeito(Jogador& alvo) const;
+
+    /**
+     * @brief Aplica o efeito da habilidade na Questão inimiga (ex: dano de resolução).
+     * @param alvo Referência à Questão afetada.
+     */
+    void aplicarEfeito(Questao& alvo) const;
 
     /**
      * @brief Exibe as informações e efeitos da habilidade no console/terminal.

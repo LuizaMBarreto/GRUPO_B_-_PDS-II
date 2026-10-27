@@ -21,7 +21,7 @@ TEST_CASE("Questao - Receber dano da resolucao"){
   
   quest.receberDanoResolucao(30);
   
-  CHECK(quest.getVidaResolucao() == 50);
+  CHECK(quest.getVidaResolucao() == 20);
   CHECK(quest.isResolvida() == false);
 }
 
@@ -29,7 +29,7 @@ SUBCASE("Dano igual a vida restante"){
     Questao quest("Integrais", 2, 75, "Procure uma primitiva");
     quest.receberDanoResolucao(75);
     
-    CHECK(quest.getVidaResolucao() == 75);
+    CHECK(quest.getVidaResolucao() == 0);
     CHECK(quest.isResolvida() == true);
 }
 
@@ -38,7 +38,7 @@ SUBCASE("Dano maior que a vida restante"){
     
     quest.receberDanoResolucao(100);
     
-    CHECK(quest.getVidaResolucao() == 75);
+    CHECK(quest.getVidaResolucao() == 0);
     CHECK(quest.isResolvida() == true);
 
 }
@@ -46,7 +46,7 @@ SUBCASE("Dano maior que a vida restante"){
         Questao quest("Limites", 1, 50, "Simplifique a expressao");
 
         quest.receberDanoResolucao(20);
-        CHECK(quest.getVidaResolucao() == 50);
+        CHECK(quest.getVidaResolucao() == 30);
 
         quest.receberDanoResolucao(10);
         CHECK(quest.getVidaResolucao() == 20);
@@ -105,9 +105,10 @@ TEST_CASE("Teste - executa a ação inimiga"){
   Questao quest("Derivada", 2, 75, "Use a regra da cadeia");
   Jogador j("Carlos");
   //ainda e uma stub e, portanto, não altera o jogador
+    int cansacoInicial = j.getCansaco();
     quest.executarAcaoInimiga(&j);
     CHECK(j.getCansaco() == cansacoInicial);
-    CHECK(quest.getVidaResolucao() == 100);
+    CHECK(quest.getVidaResolucao() == 75);
     CHECK(quest.isResolvida() == false);
 }
   
