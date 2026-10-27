@@ -130,7 +130,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 1. **Diagnóstico Inicial:** A substituição direta de $t = 2$ fornece a expressão do tipo $ \frac{2^2 - 4}{3*2^2 - 6*2} = \frac{0}{0}$.
 2. **Etapa 1 (Técnica: Multiplicação pelo Conjugado):**
    - Use diferenciação dos quadrados  no numerador:
-     $\frac{t^2-4}}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$
+     $\frac{t^2-4}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$
    - *No Jogo:* Habilidade **"Diferenciar quadrados"** causa **25 de dano** (Vida: $100 \to 75$).
 3. **Etapa 2 (Técnica: Evidenciação ):**
    - Evidenciamos um termo comum do  denominador .
@@ -142,7 +142,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    -  $ \frac{(t-2)(t+2)}{3t(t - 2)} = \frac{(t+2)}{3t} $
    - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **15 de dano** (Vida: $65 \to 50$) .
 5.   -  **Etapa 4 (Técnica: Avaliação do Limite):**
-      - Substituímos $$t = 2: \frac{2 + 2}{\sqrt{3*2} = \frac{4}{6} = \frac{2}{3}$$.
+      - Substituímos $$t = 2: \frac{2 + 2}{\sqrt(3*2)} = \frac{4}{6} = \frac{2}{3}$$.
    -
    - *No Jogo:* Habilidade **"Substituição Direta"** causa **35 de dano** (Vida: $50 \to 15$).
 6. **Etapa de Conclusão (Técnica: Avaliação da função trigonométrica):**
