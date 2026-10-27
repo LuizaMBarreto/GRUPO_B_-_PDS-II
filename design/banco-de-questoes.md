@@ -130,7 +130,7 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
 1. **Diagnóstico Inicial:** A substituição direta de $t = 2$ fornece a expressão do tipo $ \frac{2^2 - 4}{3*2^2 - 6*2} = \frac{0}{0}$.
 2. **Etapa 1 (Técnica: Multiplicação pelo Conjugado):**
    - Use diferenciação dos quadrados  no numerador:
-     $\frac{t^2-4}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}}$
+     $\frac{t^2-4}{3t^2-6t} = \frac{(t-2)(t+2)}{3t^2-6t}$
    - *No Jogo:* Habilidade **"Diferenciar quadrados"** causa **25 de dano** (Vida: $100 \to 75$).
 3. **Etapa 2 (Técnica: Evidenciação ):**
    - Evidenciamos um termo comum do  denominador .
