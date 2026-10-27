@@ -133,11 +133,11 @@ Para adicionar novas questões, basta copiar o bloco abaixo e preencher com um e
    - *No Jogo:* Habilidade **"Diferenciar quadrados"** causa **25 de dano** (Vida: $100 \to 75$).
 3. **Etapa 2 (Técnica: Evidenciação ):**
    - Evidenciamos um termo comum do  denominador .
-   - $$\frac{(t-2)(t+2)}{3t^2-6t} = \frac{(t-2)(t+2)}{3t(t - 2)}$$
+   - $$ \frac{(t-2)(t+2)}{3t^2-6t} = \frac{(t-2)(t+2)}{3t(t - 2)} $$
    - *No Jogo:* Habilidade **"Evidenciação"** causa **10 de dano** (Vida: $75 \to 65$).
 4.  -  **Etapa 3 (Técnica: Cancelamento Algébrico):**
    - Cancelamos o termo $t -2$ no numerador e no denominador
-   -  $$\frac{(t-2)(t+2)}{3t(t - 2)} = \frac{(t+2)}{3t}$$
+   -  $$ \frac{(t-2)(t+2)}{3t(t - 2)} = \frac{(t+2)}{3t} $$
    - *No Jogo:* Habilidade **"Simplificação de Termos"** causa **15 de dano** (Vida: $65 \to 50$) .
 5.   -  **Etapa 4 (Técnica: Avaliação do Limite):**
       - Substituímos $$t = 2$: $\frac{2 + 2}{\sqrt{3*2} = \frac{4}{6} = \frac{2}{3}$.
