@@ -1,6 +1,6 @@
 #include "Questao.hpp"
 #include "Jogador.hpp"
-#include <iostream>
+
 
 
 Questao::Questao(std:: string assunto, int dificuldade,
@@ -41,12 +41,15 @@ std::string Questao::fornecerDica() const{
 	return _dica;
 }
 
-int Questao::danoContraAtaque() const{
+int Questao::getdanoContraAtaque() const{
 	return _danoContraAtaque;
 }
 
 //decrementa o dano da vida da questão e assegura que a questão não terá uma vida negativa
 void Questao::receberDanoResolucao(int dano){
+	  if (_resolvida || dano <= 0) {
+        return;
+    }
 	if(dano >= _vidaResolucao){
 		_vidaResolucao = 0;
 		_resolvida = true;
@@ -69,6 +72,10 @@ void Questao::executarAcaoInimiga(Jogador* jogador){
 		return;
 	}
 	jogador -> alterarCansaco(_danoContraAtaque);
+}
+
+void Questao::ConcluirEtapaPrevia() {
+    _etapaPreviaConcluida = true;
 }
 
 bool Questao::tentarFinalizar(){
