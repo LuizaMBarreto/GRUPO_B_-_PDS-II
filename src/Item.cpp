@@ -12,19 +12,18 @@ bool Item::usarEmJogador(Jogador* jogador) {
         return false;
     }
     
-    // Efeito coerente aplicado sobre o jogador
-    if (_tipoEfeito == "CURA_ENERGIA") {
-        jogador->alterarCansaco(-20); 
-    }
+    // O efeito sobre o jogador sera implementado conforme o tipo do item posteriormente
     
     decrementarQuantidade();
     return true;
 }
 
 bool Item::usarEmQuestao(Questao* questao) {
+    // Nao e possivel usar o item sem um alvo ou sem unidades disponiveis
     if (questao == nullptr || _quantidade <= 0) {
         return false;
     }
+    // O efeito sobre a questao sera implementado conforme o tipo do item posteriormente
     
     decrementarQuantidade();
     return true;
@@ -35,6 +34,7 @@ void Item::adicionarQuantidade(int qtd) {
 }
 
 void Item::decrementarQuantidade() {
+    // Impede que a quantidade fique negativa
     if (_quantidade > 0) {
         _quantidade--;
     }
