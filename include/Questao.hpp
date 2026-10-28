@@ -24,7 +24,7 @@ private:
     int _barraBonus;                    /**< Barra acumulativa de bônus de energia */
     bool _resolvida;                    /**< Status de resolução da questão */
     std::string _dica;                  /**< Texto contendo a dica de resolução */
-    int dano_ContraAtaque;
+    int _danoContraAtaque;
     std::vector<Habilidade> _habilidadesInimigo; /**< Habilidades de ataque da questão */
     bool _etapaPreviaConcluida;         /**< Indica se o passo preparatório/algébrico foi concluído */
 
