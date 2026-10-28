@@ -69,7 +69,7 @@ void Jogador::usarItem(size_t indice) {
     // Tenta aplicar o efeito do item no próprio jogador
     bool usou = _itens[indice].usarEmJogador(this);
     if (usou) {
-        _itens[indice].decrementarQuantidade();
+        // A remoção de decrementarQuantidade() aqui previne o duplo decréscimo
         if (_itens[indice].getQuantidade() <= 0) {
             _itens.erase(_itens.begin() + indice);
         }
