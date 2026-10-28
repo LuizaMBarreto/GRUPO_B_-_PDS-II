@@ -4,13 +4,14 @@
 
 
 Questao::Questao(std:: string assunto, int dificuldade,
-int vidaResolucao, std::string dica):
+int vidaResolucao, std::string dica, int danoContraAtaque):
   _assunto(assunto),
   _dificuldade(dificuldade),
   _vidaResolucao(vidaResolucao),
   _barraBonus(0),
   _resolvida(false),
   _dica (dica),
+  _danoContraAtaque(danoContraAtaque),
   _etapaPreviaConcluida(false){
 
 }
@@ -40,6 +41,10 @@ std::string Questao::fornecerDica() const{
 	return _dica;
 }
 
+int Questao::danoContraAtaque() const{
+	return _danoContraAtaque;
+}
+
 //decrementa o dano da vida da questão e assegura que a questão não terá uma vida negativa
 void Questao::receberDanoResolucao(int dano){
 	if(dano >= _vidaResolucao){
@@ -57,8 +62,13 @@ void Questao::incrementarBonus(int pontos){
 }
 
 void Questao::executarAcaoInimiga(Jogador* jogador){
-	//stub: Implementar após definir o comportamento com o grupo.
-  (void)jogador;
+	if (jogador == nullptr){
+		return;
+	}
+	if (_resolvida){
+		return;
+	}
+	jogador -> alterarCansaco(_danoContraAtaque);
 }
 
 bool Questao::tentarFinalizar(){
