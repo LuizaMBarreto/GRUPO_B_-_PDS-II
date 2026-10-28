@@ -24,6 +24,7 @@ private:
     int _barraBonus;                    /**< Barra acumulativa de bônus de energia */
     bool _resolvida;                    /**< Status de resolução da questão */
     std::string _dica;                  /**< Texto contendo a dica de resolução */
+    int dano_ContraAtaque;
     std::vector<Habilidade> _habilidadesInimigo; /**< Habilidades de ataque da questão */
     bool _etapaPreviaConcluida;         /**< Indica se o passo preparatório/algébrico foi concluído */
 
@@ -35,7 +36,7 @@ public:
      * @param vidaResolucao Quantidade de pontos necessários para ser resolvida.
      * @param dica Dica associada à resolução.
      */
-    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica);
+    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtque);
 
     /** @brief Destrutor padrão */
     virtual ~Questao() = default;
@@ -83,6 +84,12 @@ public:
     int getVidaResolucao() const;
     int getBarraBonus() const;
     bool isResolvida() const;
+    int getdanoContraAtaque() const;
+
+/**
+* @brief Marca a etapa prévia da questão como concluída
+**/
+void ConcluirEtapaPrevia();
 };
 
 #endif // QUESTAO_HPP
