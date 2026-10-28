@@ -102,20 +102,51 @@ TEST_CASE("Teste - Finalizar questao"){
   }
 }
 TEST_CASE("Teste - executa a ação inimiga"){
-  Questao quest("Derivada", 2, 75, "Use a regra da cadeia");
+
+ SUBCASE("Uma tentaiva errada aumenta o cansaco"){
+  Questao quest("Derivada", 2, 75, "Use a regra da cadeia", 15);
   Jogador j("Carlos");
-  //ainda e uma stub e, portanto, não altera o jogador
+ 
+
     int cansacoInicial = j.getCansaco();
-    quest.executarAcaoInimiga(&j);
-    CHECK(j.getCansaco() == cansacoInicial);
-    CHECK(quest.getVidaResolucao() == 75);
-    CHECK(quest.isResolvida() == false);
-}
   
+    quest.executarAcaoInimiga(&j);
+    CHECK(j.getCansaco() == 15);
+}
 
+SUBCASE("Tentivas erradas acumulam cansaco"){
+ 
+   Questao quest("Limite", 1, 5, "Use a fatoracao", 15);
+   Jogador j("Carlos");
+ 
+   quest.executarAcaoInimiga(&j);
+  CHECK(j.getCansaco() == 15);
+ 
+ quest.executarAcaoInimiga(&j);
+ CHECK (j.getCansaco() == 30);
 
+ quest.executarAcaoInimiga(&j);
+ CHECK(j.getCansaco() == 45);
+}
 
+SUBCASE("Questao resolvida nao contra ataca"){
+  Questao quest("Derivada", 2, 75, "Use a regra da cadeia", 15);
+  Jogador j("Carlos");
+  
+quest.receberDanoResolucao(75);
+CHECK(quest.isResolvida() == true);
+quest.executarAcaoInimiga(&j);
+CHECK(j.getCansaco == 0);
+}
 
+SUBCASE("Ponteiro nulo nao causa alteracoes"){
+ Questao quest("Limite", 1, 50, "Use a fatoracao", 15);
+ quest.executarAcaoInimiga(nullptr);
+ CHECK(quest.getVidaResolucao == 50);
+ CHECK(quest.IsResolvida == false);
+}
+
+}
 
 
 
