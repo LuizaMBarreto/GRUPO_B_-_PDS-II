@@ -78,6 +78,11 @@ public:
      */
     bool isProntaParaFinalizar() const;
 
+    /**
+    * @brief Marca a etapa prévia da questão como concluída
+    **/
+    void ConcluirEtapaPrevia();
+
     // Getters
     std::string getAssunto() const;
     int getDificuldade() const;
@@ -86,10 +91,7 @@ public:
     bool isResolvida() const;
     int getdanoContraAtaque() const;
 
-/**
-* @brief Marca a etapa prévia da questão como concluída
-**/
-void ConcluirEtapaPrevia();
+
 };
 
 #endif // QUESTAO_HPP
