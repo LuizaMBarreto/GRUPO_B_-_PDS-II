@@ -4,7 +4,7 @@
 
 
 Questao::Questao(std:: string assunto, int dificuldade,
-int vidaResolucao, std::string dica, int danoContraAtaque):
+int vidaResolucao, std::string dica, int danoContraAtaque, vector <Habilidades> habilidadesInimigo ):
   _assunto(assunto),
   _dificuldade(dificuldade),
   _vidaResolucao(vidaResolucao),
@@ -12,6 +12,7 @@ int vidaResolucao, std::string dica, int danoContraAtaque):
   _resolvida(false),
   _dica (dica),
   _danoContraAtaque(danoContraAtaque),
+  _habilidadesInimigo(habilidadesInimigo),
   _etapaPreviaConcluida(false){
 
 }
@@ -45,6 +46,11 @@ int Questao::getdanoContraAtaque() const{
 	return _danoContraAtaque;
 }
 
+const std::vector<Habilidade>& Questao::getHabilidadesInimigo() const {
+    return _habilidadesInimigo;
+}
+
+
 //decrementa o dano da vida da questão e assegura que a questão não terá uma vida negativa
 void Questao::receberDanoResolucao(int dano){
 	  if (_resolvida || dano <= 0) {
@@ -72,6 +78,12 @@ void Questao::executarAcaoInimiga(Jogador* jogador){
 		return;
 	}
 	jogador -> alterarCansaco(_danoContraAtaque);
+}
+
+void Questao::adicionarHabilidadeInimiga(
+    const Habilidade& habilidade) {
+
+    _habilidadesInimigo.push_back(habilidade);
 }
 
 void Questao::ConcluirEtapaPrevia() {
