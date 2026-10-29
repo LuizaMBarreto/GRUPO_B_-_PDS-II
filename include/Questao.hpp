@@ -69,8 +69,17 @@ public:
      * @brief Tenta finalizar a questão definitivamente.
      *        Se a etapa preparatória foi cumprida, zera a vida e marca como resolvida.
      * @return true se resolvida com sucesso, false caso contrário.
+
+     
      */
-    bool tentarFinalizar();
+     bool tentarFinalizar();
+    /** 
+    * @brief Adiciona a habilidade da questao(inimigo) para implementação.
+    * @return dano(cansaço) causado pela habilidade inimiga.
+    **/
+    void adicionarHabilidadeInimiga(const Habilidade& habilidade);
+
+   
 
     /**
      * @brief Verifica se a questão já está apta para a finalização definitiva.
@@ -90,7 +99,7 @@ public:
     int getBarraBonus() const;
     bool isResolvida() const;
     int getdanoContraAtaque() const;
-
+    const std::vector<Habilidade>& getHabilidadesInimigo() const;
 
 };
 
