@@ -36,7 +36,7 @@ public:
      * @param vidaResolucao Quantidade de pontos necessários para ser resolvida.
      * @param dica Dica associada à resolução.
      */
-    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtque);
+    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque);
 
     /** @brief Destrutor padrão */
     virtual ~Questao() = default;
