@@ -36,7 +36,7 @@ public:
      * @param vidaResolucao Quantidade de pontos necessários para ser resolvida.
      * @param dica Dica associada à resolução.
      */
-    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque);
+    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque = 15);
 
     /** @brief Destrutor padrão */
     virtual ~Questao() = default;
@@ -90,6 +90,7 @@ public:
     /**
     * @brief Marca a etapa prévia da questão como concluída
     **/
+    void concluirEtapaPrevia();
     void ConcluirEtapaPrevia();
 
     // Getters

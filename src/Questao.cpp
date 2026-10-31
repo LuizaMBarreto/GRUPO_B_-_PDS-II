@@ -3,16 +3,16 @@
 
 
 
-Questao::Questao(std:: string assunto, int dificuldade,
-int vidaResolucao, std::string dica, int danoContraAtaque, vector <Habilidades> habilidadesInimigo ):
+Questao::Questao(std::string assunto, int dificuldade,
+int vidaResolucao, std::string dica, int danoContraAtaque):
   _assunto(assunto),
   _dificuldade(dificuldade),
   _vidaResolucao(vidaResolucao),
   _barraBonus(0),
   _resolvida(false),
-  _dica (dica),
+  _dica(dica),
   _danoContraAtaque(danoContraAtaque),
-  _habilidadesInimigo(habilidadesInimigo),
+  _habilidadesInimigo(),
   _etapaPreviaConcluida(false){
 
 }
@@ -86,8 +86,12 @@ void Questao::adicionarHabilidadeInimiga(
     _habilidadesInimigo.push_back(habilidade);
 }
 
-void Questao::ConcluirEtapaPrevia() {
+void Questao::concluirEtapaPrevia() {
     _etapaPreviaConcluida = true;
+}
+
+void Questao::ConcluirEtapaPrevia() {
+    concluirEtapaPrevia();
 }
 
 bool Questao::tentarFinalizar(){

@@ -105,7 +105,7 @@ TEST_CASE("Teste - executa a ação inimiga"){
     int cansacoInicial = j.getCansaco();
   
     quest.executarAcaoInimiga(&j);
-    CHECK(j.getCansaco() == 15);
+    CHECK(j.getCansaco() == cansacoInicial + 15);
 }
 
 SUBCASE("Tentivas erradas acumulam cansaco"){
@@ -137,7 +137,7 @@ SUBCASE("Ponteiro nulo nao causa alteracoes"){
  Questao quest("Limite", 1, 50, "Use a fatoracao", 15);
  quest.executarAcaoInimiga(nullptr);
  CHECK(quest.getVidaResolucao() == 50);
- CHECK(quest.IsResolvida() == false);
+ CHECK(quest.isResolvida() == false);
 }
 
 }
