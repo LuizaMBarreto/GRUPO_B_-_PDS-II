@@ -19,6 +19,7 @@ class Jogador;
 class Questao {
 private:
     std::string _assunto;               /**< Tema da questão (Limite, Derivada, Integral) */
+    std::string _nomeContraAtaque;      /**< Nome do Ataque usado pela Questão*/
     int _dificuldade;                   /**< Nível de dificuldade (1 a 3) */
     int _vidaResolucao;                 /**< "Pontos de vida"/dificuldade técnica restante */
     int _barraBonus;                    /**< Barra acumulativa de bônus de energia */
@@ -94,6 +95,7 @@ public:
 
     // Getters
     std::string getAssunto() const;
+    std::string getNomeContraAtaque() const;
     int getDificuldade() const;
     int getVidaResolucao() const;
     int getBarraBonus() const;
