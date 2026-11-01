@@ -12,13 +12,19 @@ int vidaResolucao, std::string dica, int danoContraAtaque, vector <Habilidades> 
   _resolvida(false),
   _dica (dica),
   _danoContraAtaque(danoContraAtaque),
-  _habilidadesInimigo(habilidadesInimigo),
+  _habilidadesInimigo(habilidadesInimigo),	
   _etapaPreviaConcluida(false){
 
 }
 
 std::string Questao::getAssunto() const{
 	return _assunto;
+}
+
+
+std::string Questao::NomeContraAtaque() const{
+	return _nomeContraAtaque;
+	
 }
 
  int Questao::getDificuldade() const{
@@ -46,6 +52,10 @@ int Questao::getdanoContraAtaque() const{
 	return _danoContraAtaque;
 }
 
+bool Questao::bonusCompleto() const{
+	return _barraBonus >= 100;
+}
+
 const std::vector<Habilidade>& Questao::getHabilidadesInimigo() const {
     return _habilidadesInimigo;
 }
@@ -70,6 +80,21 @@ void Questao::incrementarBonus(int pontos){
 	//	por enquanto esta correta
 }
 
+int Questao::getPontuacao() const{
+	switch(_dificuldade){
+		case 1:
+			return 50;
+		case 2:
+			return 75;
+		case 3:
+			return 100;
+		default:
+			return 0;
+		//fornece a pontuação recebida pelo jogador baseando-se no nível de dificuldade da função
+	}
+}
+
+
 void Questao::executarAcaoInimiga(Jogador* jogador){
 	if (jogador == nullptr){
 		return;
@@ -91,6 +116,10 @@ void Questao::ConcluirEtapaPrevia() {
 }
 
 bool Questao::tentarFinalizar(){
+	if(_resolvida){
+		return false;
+	}
+	
 	if(_etapaPreviaConcluida){
 		_vidaResolucao = 0;
 		_resolvida = true;
