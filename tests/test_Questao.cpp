@@ -79,6 +79,14 @@ TEST_CASE("Teste - incrementar barra de bonus"){
   } 
 }
 
+TEST_CASE("Teste - Questao adiciona habilidades inimigas"){
+  Questao quest("Limite", 1, 50, "use fatoracao", 10);
+  Habilidade ataque("Indeterminacao 0/0", "Aumenta Cansaco", 15);
+  quest.adicionarHabilidadeInimiga(ataque);
+  CHECK(quest.getHabilidadesInimigo().size() == 1u);
+  CHECK(quest.getHabilidadesInimigo()[0].getNome() == "Indeterminacao 0/0");
+}
+
   TEST_CASE("Teste - Fornecimentos de dicas"){
      Questao quest("Limite", 3, 100, "Tem uma assíntota aí", 19);
     CHECK(quest.fornecerDica() == "Tem uma assíntota aí");

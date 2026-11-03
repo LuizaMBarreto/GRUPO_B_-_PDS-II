@@ -19,6 +19,7 @@ class Jogador;
 class Questao {
 private:
     std::string _assunto;               /**< Tema da questão (Limite, Derivada, Integral) */
+    std::string _nomeContraAtaque;      /**< Nome do Ataque usado pela Questão*/
     int _dificuldade;                   /**< Nível de dificuldade (1 a 3) */
     int _vidaResolucao;                 /**< "Pontos de vida"/dificuldade técnica restante */
     int _barraBonus;                    /**< Barra acumulativa de bônus de energia */
@@ -73,6 +74,12 @@ public:
      
      */
      bool tentarFinalizar();
+
+    /**
+    *@brief verifica se a barra de bonus atingiu o limite máximo
+    *@return true se a barra estiver completa, false caso contrário
+    **/
+    bool bonusCompleto() const;
     /** 
     * @brief Adiciona a habilidade da questao(inimigo) para implementação.
     * @return dano(cansaço) causado pela habilidade inimiga.
@@ -80,7 +87,6 @@ public:
     void adicionarHabilidadeInimiga(const Habilidade& habilidade);
 
    
-
     /**
      * @brief Verifica se a questão já está apta para a finalização definitiva.
      * @return true se o passo prévio foi cumprido.
@@ -93,13 +99,18 @@ public:
     void concluirEtapaPrevia();
     void ConcluirEtapaPrevia();
 
+   
+
     // Getters
     std::string getAssunto() const;
+    std::string getNomeContraAtaque() const;
+    std::string NomeContraAtaque() const;
     int getDificuldade() const;
     int getVidaResolucao() const;
     int getBarraBonus() const;
     bool isResolvida() const;
     int getdanoContraAtaque() const;
+    int getPontuacao() const;
     const std::vector<Habilidade>& getHabilidadesInimigo() const;
 
 };
