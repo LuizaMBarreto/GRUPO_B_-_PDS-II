@@ -1,7 +1,15 @@
 CC = g++
 CFLAGS = -std=c++11 -Wall -Iinclude
+SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 all: test
+
+game:
+	mkdir -p build
+	$(CC) $(CFLAGS) src/*.cpp src/interface/*.cpp -o build/rpg_game $(SFML_FLAGS)
+
+run: game
+	./build/rpg_game
 
 test:
 	mkdir -p build
@@ -15,5 +23,5 @@ coverage:
 	gcovr -r . --filter 'src/'
 
 clean:
-	rm -f build/test_runner build/*.o *.gcda *.gcno src/*.gcda src/*.gcno tests/*.gcda tests/*.gcno
+	rm -f build/test_runner build/rpg_game build/*.o *.gcda *.gcno src/*.gcda src/*.gcno tests/*.gcda tests/*.gcno
 

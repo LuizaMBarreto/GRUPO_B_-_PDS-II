@@ -2,6 +2,7 @@
 #include "Habilidade.hpp"
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Excecoes.hpp"
 
 TEST_CASE("Testando criacao de Habilidade ofensiva (afeta inimigo por padrao)") {
     Habilidade hab("Regra da Cadeia", "Causa dano adicional a questao", 15);
@@ -86,5 +87,25 @@ TEST_CASE("Testando aplicacao de efeito de Habilidade ofensiva na Questao") {
         CHECK(questao.getVidaResolucao() == 50);
     }
 }
+
+TEST_CASE("Testando tratamento de excecoes em Habilidade (C9)") {
+    SUBCASE("Lanca excecao ao tentar criar habilidade com nome vazio") {
+        CHECK_THROWS_AS(Habilidade("", "Descricao valida", 10), ParametroInvalidoException);
+    }
+
+    SUBCASE("Lanca excecao ao tentar criar habilidade com efeito negativo") {
+        CHECK_THROWS_AS(Habilidade("Golpe", "Descricao valida", -5), ParametroInvalidoException);
+    }
+
+    SUBCASE("Tratamento de excecao com try/catch e verificacao da mensagem") {
+        try {
+            Habilidade habInvalida("", "Sem nome", 10);
+            FAIL("Deveria ter lancado ParametroInvalidoException");
+        } catch (const ParametroInvalidoException& e) {
+            CHECK(std::string(e.what()).find("Erro de Parametro") != std::string::npos);
+        }
+    }
+}
+
 
 

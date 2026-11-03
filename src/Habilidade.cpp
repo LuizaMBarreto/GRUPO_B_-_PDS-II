@@ -1,10 +1,18 @@
 #include "Habilidade.hpp"
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Excecoes.hpp"
 #include <iostream>
 
 Habilidade::Habilidade(const std::string& nome, const std::string& descricao, int efeitoValor, bool afetaInimigo)
-    : _nome(nome), _descricao(descricao), _efeitoValor(efeitoValor), _afetaInimigo(afetaInimigo) {}
+    : _nome(nome), _descricao(descricao), _efeitoValor(efeitoValor), _afetaInimigo(afetaInimigo) {
+    if (_nome.empty()) {
+        throw ParametroInvalidoException("O nome da habilidade nao pode ser vazio!");
+    }
+    if (_efeitoValor < 0) {
+        throw ParametroInvalidoException("O valor do efeito da habilidade nao pode ser negativo!");
+    }
+}
 
 std::string Habilidade::getNome() const {
     return _nome;
