@@ -1,32 +1,32 @@
 #include "Item.hpp"
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Excecoes.hpp"
 
 Item::Item(std::string nome, std::string descricao, int quantidade, std::string tipoEfeito)
     : _nome(nome), _descricao(descricao), _quantidade(quantidade), _tipoEfeito(tipoEfeito) {
 }
 
-bool Item::usarEmJogador(Jogador* jogador) {
-    // Nao e possivel usar o item sem um alvo ou sem unidades disponiveis
-    if (jogador == nullptr || _quantidade <= 0) {
-        return false;
+void Item::usarEmJogador(Jogador* jogador) {
+    if (jogador == nullptr) {
+        throw ParametroInvalidoException("Tentativa de usar item em jogador nulo (nullptr).");
+    }
+    if (_quantidade <= 0) {
+        throw ItemEsgotadoException("Item '" + _nome + "' esta esgotado!");
     }
     
-    // O efeito sobre o jogador sera implementado conforme o tipo do item posteriormente
-    
     decrementarQuantidade();
-    return true;
 }
 
-bool Item::usarEmQuestao(Questao* questao) {
-    // Nao e possivel usar o item sem um alvo ou sem unidades disponiveis
-    if (questao == nullptr || _quantidade <= 0) {
-        return false;
+void Item::usarEmQuestao(Questao* questao) {
+    if (questao == nullptr) {
+        throw ParametroInvalidoException("Tentativa de usar item em questao nula (nullptr).");
     }
-    // O efeito sobre a questao sera implementado conforme o tipo do item posteriormente
+    if (_quantidade <= 0) {
+        throw ItemEsgotadoException("Item '" + _nome + "' esta esgotado!");
+    }
     
     decrementarQuantidade();
-    return true;
 }
 
 void Item::adicionarQuantidade(int qtd) {
@@ -34,7 +34,6 @@ void Item::adicionarQuantidade(int qtd) {
 }
 
 void Item::decrementarQuantidade() {
-    // Impede que a quantidade fique negativa
     if (_quantidade > 0) {
         _quantidade--;
     }

@@ -38,16 +38,18 @@ public:
     /**
      * @brief Aplica o efeito do item diretamente no jogador.
      * @param jogador Ponteiro para o jogador.
-     * @return true se o item foi aplicado com sucesso, false caso contrário.
+     * @throws ParametroInvalidoException se o ponteiro do jogador for nullptr.
+     * @throws ItemEsgotadoException se a quantidade do item for <= 0.
      */
-    bool usarEmJogador(Jogador* jogador);
+    void usarEmJogador(Jogador* jogador);
 
     /**
      * @brief Aplica o efeito do item sobre uma questão alvo (ex: revelando dica).
      * @param questao Ponteiro para a questão alvo.
-     * @return true se acionado com sucesso, false caso contrário.
+     * @throws ParametroInvalidoException se o ponteiro da questão for nullptr.
+     * @throws ItemEsgotadoException se a quantidade do item for <= 0.
      */
-    bool usarEmQuestao(Questao* questao);
+    void usarEmQuestao(Questao* questao);
 
     /**
      * @brief Incrementa a quantidade do item no inventário.
