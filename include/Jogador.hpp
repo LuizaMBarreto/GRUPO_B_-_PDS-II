@@ -1,3 +1,8 @@
+/**
+ * @file Jogador.hpp
+ * @brief Definição da classe Jogador e gerenciamento de seus atributos e ações.
+ */
+
 #pragma once
 
 #include <string>
@@ -6,15 +11,11 @@
 #include "Item.hpp"
 
 /**
- * @file Jogador.hpp
- * @brief Definição da classe Jogador e gerenciamento de seus atributos e ações.
- */
-
-/**
  * @class Jogador
  * @brief Representa o jogador no sistema, contendo estatísticas de combate/jogo,
  *        inventário de itens e habilidades disponíveis.
  */
+
 class Jogador {
 private:
     std::string _nome;
@@ -29,6 +30,7 @@ public:
      * @param nome Nome do jogador.
      * @param cansaco Nível inicial de cansaço.
      * @param danoBase Dano base inicial do jogador.
+     * @throws ParametroInvalidoException se o dano base for <= 0.
      */
     Jogador(const std::string& nome, int cansaco = 0, int danoBase = 10);
 
@@ -96,6 +98,7 @@ public:
     /**
      * @brief Usa um item do inventário pelo seu índice.
      * @param indice Índice do item no inventário.
+     * @throws IndiceInvalidoException se o índice for maior ou igual ao tamanho do inventário.
      */
     void usarItem(size_t indice);
 };
