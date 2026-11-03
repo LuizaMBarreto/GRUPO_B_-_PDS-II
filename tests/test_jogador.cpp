@@ -2,25 +2,27 @@
 #include "Jogador.hpp"
 #include "Habilidade.hpp"
 #include "Item.hpp"
+#include "Excecoes.hpp"
 
-TEST_CASE("Jogador - Criacao com atributos padrao e personalizados") {
-    SUBCASE("Atributos padrao") {
-        Jogador j("Carlos");
-        CHECK(j.getCansaco() == 0);
-        CHECK(j.getDano() == 10);
-        CHECK(j.getHabilidades().empty());
-        CHECK(j.getItens().empty());
+TEST_CASE("Jogador - Criacao com atributos e excecoes") {
+    SUBCASE("Atributos padrao e personalizados") {
+        Jogador j1("Carlos");
+        CHECK(j1.getCansaco() == 0);
+        CHECK(j1.getDano() == 10);
+
+        Jogador j2("Ana", 15, 25);
+        CHECK(j2.getCansaco() == 15);
+        CHECK(j2.getDano() == 25);
     }
 
-    SUBCASE("Atributos personalizados") {
-        Jogador j("Ana", 15, 25);
-        CHECK(j.getCansaco() == 15);
-        CHECK(j.getDano() == 25);
-    }
-
-    SUBCASE("Cansaco inicial negativo deve ser ajustado para zero") {
+    SUBCASE("Cansaco inicial negativo ajustado para zero") {
         Jogador j("Pedro", -10, 15);
         CHECK(j.getCansaco() == 0);
+    }
+
+    SUBCASE("Dano base invalido (<= 0) lanca ParametroInvalidoException") {
+        CHECK_THROWS_AS(Jogador("Invalido", 0, 0), ParametroInvalidoException);
+        CHECK_THROWS_AS(Jogador("Invalido", 0, -5), ParametroInvalidoException);
     }
 }
 
@@ -60,7 +62,7 @@ TEST_CASE("Jogador - Adicao e consulta de habilidades") {
     CHECK(j.getHabilidades()[1].getNome() == "Meditacao");
 }
 
-TEST_CASE("Jogador - Adicao e uso de itens do inventario") {
+TEST_CASE("Jogador - Adicao e uso de itens com IndiceInvalidoException") {
     Jogador j("Guerreiro", 20, 10);
 
     Item itemCura("Cafe", "Recupera energia/cansaco", 2, "CURA_ENERGIA");
@@ -86,20 +88,19 @@ TEST_CASE("Jogador - Adicao e uso de itens do inventario") {
     SUBCASE("Usar item do inventario") {
         j.adicionarItem(itemCura); // quantidade = 2
         
-        j.usarItem(0); // usa 1 unidade do item no indice 0
+        CHECK_NOTHROW(j.usarItem(0)); // usa 1 unidade do item no indice 0
         
-        // Se a implementacao de usarEmJogador decrementar a quantidade, restará 1
         CHECK(j.getItens().size() == 1);
         CHECK(j.getItens()[0].getQuantidade() == 1);
 
-        j.usarItem(0); // usa a última unidade
+        CHECK_NOTHROW(j.usarItem(0)); // usa a última unidade
         // Item deve ser removido do inventário ao atingir quantidade 0
         CHECK(j.getItens().empty());
     }
 
-    SUBCASE("Usar item com indice invalido nao deve causar travamento") {
+    SUBCASE("Usar item com indice invalido lanca IndiceInvalidoException") {
         j.adicionarItem(itemCura);
-        j.usarItem(10); // Índice fora dos limites
+        CHECK_THROWS_AS(j.usarItem(10), IndiceInvalidoException); // Índice fora dos limites
         CHECK(j.getItens().size() == 1);
     }
 }

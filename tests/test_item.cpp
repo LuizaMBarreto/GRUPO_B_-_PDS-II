@@ -2,6 +2,7 @@
 #include "Item.hpp"
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Excecoes.hpp"
 
 TEST_CASE("Item - Criacao com atributos") {
     Item item("Pocao de Energia", "Restaura 20 pontos de energia", 2, "CURA_ENERGIA");
@@ -26,7 +27,6 @@ TEST_CASE("Item - Modificacao de quantidade") {
     }
 
     SUBCASE("Quantidade nao fica negativa") {
-        // Mais decrementos do que unidades disponiveis
         item.decrementarQuantidade();
         item.decrementarQuantidade();
         item.decrementarQuantidade();
@@ -35,33 +35,39 @@ TEST_CASE("Item - Modificacao de quantidade") {
     }
 }
 
-TEST_CASE("Item - Uso em jogador") {
+TEST_CASE("Item - Uso em jogador com excecoes") {
     Jogador jogador("Cassia");
     Item item("Pocao de Energia", "Restaura 20 pontos de energia", 2, "CURA_ENERGIA");
 
     SUBCASE("Uso com quantidade disponivel") {
-        CHECK(item.usarEmJogador(&jogador));
+        CHECK_NOTHROW(item.usarEmJogador(&jogador));
         CHECK(item.getQuantidade() == 1);
     }
 
-    SUBCASE("Uso com ponteiro nulo") {
-        CHECK_FALSE(item.usarEmJogador(nullptr));
+    SUBCASE("Uso com ponteiro nulo lanca ParametroInvalidoException") {
+        CHECK_THROWS_AS(item.usarEmJogador(nullptr), ParametroInvalidoException);
     }
 }
 
-TEST_CASE("Item - Uso em questao") {
+TEST_CASE("Item - Uso em questao com excecoes") {
     Questao questao("Integral", 3, 30, "Tente integracao por partes");
     Item item("Dica de Integral", "Revela a dica da questao", 1, "DICA");
 
-    CHECK(item.usarEmQuestao(&questao));
+    SUBCASE("Uso com questao valida") {
+        CHECK_NOTHROW(item.usarEmQuestao(&questao));
+    }
+
+    SUBCASE("Uso com questao nula lanca ParametroInvalidoException") {
+        CHECK_THROWS_AS(item.usarEmQuestao(nullptr), ParametroInvalidoException);
+    }
 }
 
-TEST_CASE("Item - Uso com quantidade zero") {
+TEST_CASE("Item - Uso com quantidade zero lanca ItemEsgotadoException") {
     Jogador jogador("Cassia");
     Questao questao("Limite", 1, 10, "Analise o limite pela esquerda");
     Item item("Pocao de Energia", "Restaura 20 pontos de energia", 0, "CURA_ENERGIA");
 
-    CHECK_FALSE(item.usarEmJogador(&jogador));
-    CHECK_FALSE(item.usarEmQuestao(&questao));
+    CHECK_THROWS_AS(item.usarEmJogador(&jogador), ItemEsgotadoException);
+    CHECK_THROWS_AS(item.usarEmQuestao(&questao), ItemEsgotadoException);
     CHECK(item.getQuantidade() == 0);
 }
