@@ -17,6 +17,9 @@ void Semestre::explorarSala() {
 }
 
 void Semestre::somarPontuacao(int pontos) {
+    if (pontos < 0) {
+        throw ParametroInvalidoException("Pontuacao negativa nao e permitida");
+    }
      _pontuacaoAcumulada += pontos;
 }
 

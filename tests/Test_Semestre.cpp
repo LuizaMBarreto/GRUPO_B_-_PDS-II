@@ -106,7 +106,7 @@ TEST_CASE("Testando verificacao de fim de combate por cansaco") {
     }
 }
 
-TEST_CASE("Testando tratamento de excecoes em Semestre (C9)") {
+TEST_CASE("Testando tratamento de excecoes em Semestre") {
     SUBCASE("Lanca excecao ao buscar prova atual sem provas cadastradas") {
         Jogador jogador("Carlos");
         Semestre semestre(jogador);
@@ -124,5 +124,24 @@ TEST_CASE("Testando tratamento de excecoes em Semestre (C9)") {
         } catch (const IndiceInvalidoException& e) {
             CHECK(std::string(e.what()).find("Erro de Indice") != std::string::npos);
         }
+    }
+
+    SUBCASE("Lanca excecao ao somar pontuacao negativa") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+
+        CHECK_THROWS_AS(semestre.somarPontuacao(-10), ParametroInvalidoException);
+    }
+
+    SUBCASE("Pontuacao nao e alterada apos tentativa negativa") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+        semestre.somarPontuacao(20);
+
+        try {
+            semestre.somarPontuacao(-5);
+        } catch (const ParametroInvalidoException&) {}
+
+        CHECK(semestre.getPontuacaoAcumulada() == 20);
     }
 }
