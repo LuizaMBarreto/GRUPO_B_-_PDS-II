@@ -144,4 +144,29 @@ TEST_CASE("Testando tratamento de excecoes em Semestre") {
 
         CHECK(semestre.getPontuacaoAcumulada() == 20);
     }
+
+    SUBCASE("Lanca excecao ao gerenciar turnos sem provas cadastradas") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+
+        CHECK_THROWS_AS(semestre.gerenciarFilaDeTurnos(), IndiceInvalidoException);
+    }
+
+    SUBCASE("Lanca excecao ao tentar avancar da ultima prova") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+        semestre.adicionarProva(Prova());
+
+        CHECK_THROWS_AS(semestre.gerenciarFilaDeTurnos(), IndiceInvalidoException);
+    }
+
+    SUBCASE("Avanca normalmente quando ha proxima prova") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+        semestre.adicionarProva(Prova());
+        semestre.adicionarProva(Prova());
+
+        semestre.gerenciarFilaDeTurnos();
+        CHECK(semestre.getIndiceProvaAtual() == 1u);
+    }
 }

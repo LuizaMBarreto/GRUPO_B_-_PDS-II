@@ -10,7 +10,13 @@ void Semestre::adicionarProva(const Prova& prova) {
 }
 
 void Semestre::gerenciarFilaDeTurnos() {
-  
+   if (_provas.empty()) {
+        throw IndiceInvalidoException("Nao ha provas no semestre");
+    }
+    if (_indiceProvaAtual + 1 >= _provas.size()) {
+        throw IndiceInvalidoException("Ja esta na ultima prova do semestre");
+    }
+    _indiceProvaAtual++;
 }
 
 void Semestre::explorarSala() {
