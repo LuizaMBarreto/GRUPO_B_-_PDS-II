@@ -1,4 +1,5 @@
 #include "Semestre.hpp"
+#include "Excecoes.hpp"
 
 
 Semestre::Semestre(const Jogador& jogador)
@@ -33,8 +34,13 @@ size_t Semestre::getIndiceProvaAtual() const {
 }
 
 const Prova& Semestre::getProvaAtual() const {
-    static const Prova provaVazia;
-    return provaVazia;
+    if (_provas.empty()) {
+        throw IndiceInvalidoException("Nao ha provas cadastradas no semestre");
+    }
+    if (_indiceProvaAtual >= _provas.size()) {
+        throw IndiceInvalidoException("Indice da prova atual fora dos limites");
+    }
+    return _provas[_indiceProvaAtual];
 }
 
 const Jogador& Semestre::getJogador() const {

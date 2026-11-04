@@ -1,5 +1,6 @@
 #include "doctest.h"
 #include "Semestre.hpp"
+#include "Excecoes.hpp"
 
 TEST_CASE("Testando inicializacao do Semestre com o Jogador") {
     Jogador jogador("Carlos");
@@ -102,5 +103,26 @@ TEST_CASE("Testando verificacao de fim de combate por cansaco") {
         semestre.adicionarProva(prova);
 
         CHECK(semestre.verificarFimDeCombate() == true);
+    }
+}
+
+TEST_CASE("Testando tratamento de excecoes em Semestre (C9)") {
+    SUBCASE("Lanca excecao ao buscar prova atual sem provas cadastradas") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+
+        CHECK_THROWS_AS(semestre.getProvaAtual(), IndiceInvalidoException);
+    }
+
+    SUBCASE("Tratamento de excecao com try/catch e verificacao da mensagem") {
+        Jogador jogador("Carlos");
+        Semestre semestre(jogador);
+
+        try {
+            semestre.getProvaAtual();
+            FAIL("Deveria ter lancado IndiceInvalidoException");
+        } catch (const IndiceInvalidoException& e) {
+            CHECK(std::string(e.what()).find("Erro de Indice") != std::string::npos);
+        }
     }
 }
