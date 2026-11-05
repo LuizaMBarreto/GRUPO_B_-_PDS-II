@@ -15,6 +15,13 @@ int vidaResolucao, std::string dica, int danoContraAtaque):
   _danoContraAtaque(danoContraAtaque),
   _habilidadesInimigo(),
   _etapaPreviaConcluida(false){
+	if(_vidaResolucao <= 0){
+		throw ParametroInvalidoException("A vida da questão não pode ser negativa");
+	}
+
+	if(_dificuldade <1 || _dificuldade > 3){
+		throw ParametroInvalidoException("A dificuldade não pode ultrapassar os parâmetros estabelecidos");
+	}
 
 }
 
@@ -69,6 +76,10 @@ void Questao::receberDanoResolucao(int dano){
 	  if (_resolvida || dano <= 0) {
         return;
     }
+		if(dano < 0){
+			throw ParametroInvalidoException("O dano não pode ser um valor negativo");
+		}
+	
 	if(dano >= _vidaResolucao){
 		_vidaResolucao = 0;
 		_resolvida = true;
@@ -76,6 +87,8 @@ void Questao::receberDanoResolucao(int dano){
 	else{
 		_vidaResolucao = _vidaResolucao - dano;
 	}
+
+	
 }
 
 void Questao::incrementarBonus(int pontos){
@@ -100,7 +113,8 @@ int Questao::getPontuacao() const{
 
 void Questao::executarAcaoInimiga(Jogador* jogador){
 	if (jogador == nullptr){
-		return;
+		throw ParametroInvalidoException("Jogador não está alocado de forma adequada");
+		
 	}
 	if (_resolvida){
 		return;
@@ -124,7 +138,8 @@ void Questao::ConcluirEtapaPrevia() {
 
 bool Questao::tentarFinalizar(){
 	if(_resolvida){
-		return false;
+		
+		throw QuestaoJaResolvidaException("A questão ja foi resolvida");
 	}
 	
 	if(_etapaPreviaConcluida){
