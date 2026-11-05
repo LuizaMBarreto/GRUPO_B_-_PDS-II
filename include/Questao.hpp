@@ -36,6 +36,8 @@ public:
      * @param dificuldade Dificuldade (1=Fácil, 2=Média, 3=Difícil).
      * @param vidaResolucao Quantidade de pontos necessários para ser resolvida.
      * @param dica Dica associada à resolução.
+     *@throws ParametroInvalidoException se  vidaResolução for menor do que 0.
+     *@throws ParametroInvalidoException se dificuldade for menor do que 1 e maior do que 3.
      */
     Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque = 15);
 
@@ -45,13 +47,17 @@ public:
     /**
      * @brief Executa um ataque/ação automática da questão contra o jogador.
      * @param jogador Ponteiro para o jogador alvo.
+     *@throws se o ponteiro ddo tipo Jogador for nullptr.
      */
     void executarAcaoInimiga(Jogador* jogador);
 
     /**
      * @brief Aplica dano de resolução na questão.
      * @param dano Valor de dano/progresso aplicado.
+     *@throws ParametroInvalidoException se dano for menor do que 1.
      */
+
+    //eu acho que esse parametro ta meio errado aqui, mas não achei a excessão de valor invalido.
     void receberDanoResolucao(int dano);
 
     /**
@@ -70,7 +76,7 @@ public:
      * @brief Tenta finalizar a questão definitivamente.
      *        Se a etapa preparatória foi cumprida, zera a vida e marca como resolvida.
      * @return true se resolvida com sucesso, false caso contrário.
-
+    *  @throws se a questão já tiver sido resolvida.
      
      */
      bool tentarFinalizar();
