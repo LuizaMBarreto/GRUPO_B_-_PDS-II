@@ -1,6 +1,7 @@
 #include "doctest.h"
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Excecoes.hpp"
 
 TEST_CASE("Teste - Criação de questão com atributos personalizados"){
  Questao quest("derivada", 1, 50, "use a regra da cadeia", 15);
@@ -141,11 +142,9 @@ quest.executarAcaoInimiga(&j);
 CHECK(j.getCansaco() == 0);
 }
 
-SUBCASE("Ponteiro nulo nao causa alteracoes"){
+SUBCASE("Ponteiro nulo lanca excecao"){
  Questao quest("Limite", 1, 50, "Use a fatoracao", 15);
- quest.executarAcaoInimiga(nullptr);
- CHECK(quest.getVidaResolucao() == 50);
- CHECK(quest.isResolvida() == false);
+ CHECK_THROWS_AS(quest.executarAcaoInimiga(nullptr), ParametroInvalidoException);
 }
 
 }
@@ -164,13 +163,10 @@ TEST_CASE("Questao so pode finalizar apos concluir etapa previa") {
     CHECK(questao.getVidaResolucao() == 0);
 }
 
-TEST_CASE("Dano negativo nao aumenta a vida da questao") {
+TEST_CASE("Dano negativo lanca excecao") {
     Questao questao("Limite", 1, 10, "olhe as assíntotas");
 
-    questao.receberDanoResolucao(-5);
-
-    CHECK(questao.getVidaResolucao() == 10);
-    CHECK_FALSE(questao.isResolvida());
+    CHECK_THROWS_AS(questao.receberDanoResolucao(-5), ParametroInvalidoException);
 }
 
 TEST_CASE("Questao resolvida nao recebe mais dano") {

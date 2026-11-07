@@ -1,5 +1,6 @@
 #include "Questao.hpp"
 #include "Jogador.hpp"
+#include "Excecoes.hpp"
 
 
 
@@ -73,13 +74,12 @@ const std::vector<Habilidade>& Questao::getHabilidadesInimigo() const {
 
 //decrementa o dano da vida da questão e assegura que a questão não terá uma vida negativa
 void Questao::receberDanoResolucao(int dano){
-	  if (_resolvida || dano <= 0) {
+    if (dano < 0) {
+        throw ParametroInvalidoException("O dano não pode ser um valor negativo");
+    }
+    if (_resolvida || dano == 0) {
         return;
     }
-		if(dano < 0){
-			throw ParametroInvalidoException("O dano não pode ser um valor negativo");
-		}
-	
 	if(dano >= _vidaResolucao){
 		_vidaResolucao = 0;
 		_resolvida = true;
@@ -87,8 +87,6 @@ void Questao::receberDanoResolucao(int dano){
 	else{
 		_vidaResolucao = _vidaResolucao - dano;
 	}
-
-	
 }
 
 void Questao::incrementarBonus(int pontos){
