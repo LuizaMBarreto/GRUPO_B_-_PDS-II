@@ -65,6 +65,9 @@ public:
     size_t getIndiceProvaAtual() const;
     const Prova& getProvaAtual() const;
     const Jogador& getJogador() const;
+    Jogador& getJogador();
+    bool temProximaProva() const;
+    size_t getTotalProvas() const;
 };
 
 #endif // SEMESTRE_HPP

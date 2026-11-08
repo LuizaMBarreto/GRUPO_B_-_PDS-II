@@ -63,6 +63,9 @@ private:
     std::vector<ItemNoMapa> _itensNoChao;
 
     // Textos e HUD do mapa
+    int _numeroProvaAtual;
+    sf::RectangleShape _barraHudSuperior;
+    sf::Text _textoHudSuperior;
     sf::Text _textoInteracao;
     sf::Text _textoStatus;
     sf::Text _textoMensagem;
@@ -83,7 +86,9 @@ public:
     void processarEventos(const sf::Event& evento, Jogador& jogador);
     void atualizar(float dt);
     void renderizar(sf::RenderWindow& janela);
+    void renderizarComHUD(sf::RenderWindow& janela, int pontuacao, int cansaco, int qtdCafe, int qtdDica);
 
+    void setProvaAtual(int numeroProva);
     bool deveIniciarBatalha();
     void resetarSinalBatalha();
     void resetarPosicaoJogador();

@@ -15,6 +15,9 @@ void Item::usarEmJogador(Jogador* jogador) {
         throw ItemEsgotadoException("Item '" + _nome + "' esta esgotado!");
     }
     
+    if (_tipoEfeito == "CURA_ENERGIA") {
+        jogador->alterarCansaco(-20);
+    }
     decrementarQuantidade();
 }
 

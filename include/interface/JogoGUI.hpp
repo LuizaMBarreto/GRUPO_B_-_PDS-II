@@ -36,6 +36,8 @@ private:
     void carregarFonte();
     void iniciarNovoJogo();
     void iniciarBatalha();
+    void renderizarGameOver();
+    void renderizarVitoria();
 
 public:
     JogoGUI(unsigned int largura = 1000, unsigned int altura = 700);

@@ -55,3 +55,15 @@ const Prova& Semestre::getProvaAtual() const {
 const Jogador& Semestre::getJogador() const {
     return _jogador;
 }
+
+Jogador& Semestre::getJogador() {
+    return _jogador;
+}
+
+bool Semestre::temProximaProva() const {
+    return (_indiceProvaAtual + 1 < _provas.size());
+}
+
+size_t Semestre::getTotalProvas() const {
+    return _provas.size();
+}

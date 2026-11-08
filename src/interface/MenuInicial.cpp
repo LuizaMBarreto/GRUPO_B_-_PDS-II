@@ -30,12 +30,11 @@ MenuInicial::MenuInicial(float larguraJanela, float alturaJanela, const sf::Font
     float btnLargura = 280.0f;
     float btnAltura = 55.0f;
     float btnX = (larguraJanela - btnLargura) / 2.0f;
-    float btnYInicial = alturaJanela * 0.42f;
-    float espacamento = 75.0f;
+    float btnYInicial = alturaJanela * 0.45f;
+    float espacamento = 85.0f;
 
     _botoes.emplace_back(btnX, btnYInicial, btnLargura, btnAltura, "Novo Jogo", _fonte, 24);
-    _botoes.emplace_back(btnX, btnYInicial + espacamento, btnLargura, btnAltura, "Carregar", _fonte, 24);
-    _botoes.emplace_back(btnX, btnYInicial + espacamento * 2.0f, btnLargura, btnAltura, "Sair", _fonte, 24);
+    _botoes.emplace_back(btnX, btnYInicial + espacamento, btnLargura, btnAltura, "Sair", _fonte, 24);
 
     // Primeiro botão começa selecionado
     _botoes[0].setSelecionado(true);
@@ -64,8 +63,7 @@ AcaoMenu MenuInicial::processarEventos(const sf::Event& evento) {
             }
         } else if (evento.key.code == sf::Keyboard::Return || evento.key.code == sf::Keyboard::Space) {
             if (_indiceSelecionado == 0) return AcaoMenu::NOVO_JOGO;
-            if (_indiceSelecionado == 1) return AcaoMenu::CARREGAR_JOGO;
-            if (_indiceSelecionado == 2) return AcaoMenu::SAIR;
+            if (_indiceSelecionado == 1) return AcaoMenu::SAIR;
         }
     }
     return AcaoMenu::NENHUMA;

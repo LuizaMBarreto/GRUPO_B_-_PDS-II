@@ -8,6 +8,7 @@ MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf
       _posicaoJogador(500.0f, 350.0f),
       _velocidadeJogador(240.0f),
       _temTexturaChao(false),
+      _numeroProvaAtual(1),
       _tempoMensagem(0.0f),
       _solicitouBatalha(false) {
 
@@ -18,6 +19,18 @@ MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf
     carregarTexturas();
     trocarAmbiente(TipoAmbiente::CORREDOR);
     adicionarItens();
+
+    // Barra de HUD Superior fixada na tela
+    _barraHudSuperior.setPosition(0.0f, 0.0f);
+    _barraHudSuperior.setSize(sf::Vector2f(larguraJanela, 42.0f));
+    _barraHudSuperior.setFillColor(sf::Color(18, 22, 34, 235));
+    _barraHudSuperior.setOutlineThickness(1.0f);
+    _barraHudSuperior.setOutlineColor(sf::Color(80, 95, 130));
+
+    _textoHudSuperior.setFont(_fonte);
+    _textoHudSuperior.setCharacterSize(16);
+    _textoHudSuperior.setFillColor(sf::Color(240, 245, 255));
+    _textoHudSuperior.setPosition(20.0f, 10.0f);
 
     // Sprite do Estudante (Jogador)
     _spriteJogador.setSize(sf::Vector2f(32.0f, 32.0f));
@@ -34,16 +47,18 @@ MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf
     _textoInteracao.setString("");
 
     _textoStatus.setFont(_fonte);
-    _textoStatus.setCharacterSize(16);
-    _textoStatus.setFillColor(sf::Color(200, 215, 240));
+    _textoStatus.setCharacterSize(15);
+    _textoStatus.setFillColor(sf::Color(180, 195, 220));
     _textoStatus.setString("[WASD ou Setas: Mover]  |  [ENTER ou ESPACO: Interagir]  |  [ESC: Menu]");
-    _textoStatus.setPosition(20.0f, 15.0f);
+    _textoStatus.setPosition(20.0f, alturaJanela - 30.0f);
 
     _textoMensagem.setFont(_fonte);
     _textoMensagem.setCharacterSize(20);
     _textoMensagem.setFillColor(sf::Color(100, 255, 160)); // Verde
     _textoMensagem.setString("");
     _textoMensagem.setPosition(250.0f, 50.0f);
+
+    setProvaAtual(1);
 }
 
 void MapaExploracao::carregarTexturas() {
@@ -365,7 +380,33 @@ void MapaExploracao::atualizar(float dt) {
     }
 }
 
+void MapaExploracao::setProvaAtual(int numeroProva) {
+    _numeroProvaAtual = numeroProva;
+
+    if (_numeroProvaAtual == 1) {
+        _placaCorredor.setString("SALA 101: PROVA 1 - LIMITES");
+        _textoLousa.setString("P1: lim x->3 (x^2-9)/(x-3) = lim (x+3) = 6");
+        _placaProva.setString("MESA DA P1");
+    } else if (_numeroProvaAtual == 2) {
+        _placaCorredor.setString("SALA 101: PROVA 2 - DERIVADAS");
+        _textoLousa.setString("P2: d/dx [f(g(x))] = f'(g(x)) * g'(x)");
+        _placaProva.setString("MESA DA P2");
+    } else if (_numeroProvaAtual == 3) {
+        _placaCorredor.setString("SALA 101: PROVA 3 - INTEGRAIS");
+        _textoLousa.setString("P3: integral(u dv) = uv - integral(v du)");
+        _placaProva.setString("MESA DA P3");
+    } else {
+        _placaCorredor.setString("SALA 101: PROVA 4 - EXAME FINAL");
+        _textoLousa.setString("P4: Stewart Geral | Regra de L'Hopital");
+        _placaProva.setString("MESA DA P4");
+    }
+}
+
 void MapaExploracao::renderizar(sf::RenderWindow& janela) {
+    renderizarComHUD(janela, 0, 0, 0, 0);
+}
+
+void MapaExploracao::renderizarComHUD(sf::RenderWindow& janela, int pontuacao, int cansaco, int qtdCafe, int qtdDica) {
     // 1. Ativa a câmera dinâmica para desenhar o mundo
     janela.setView(_camera);
 
@@ -411,6 +452,24 @@ void MapaExploracao::renderizar(sf::RenderWindow& janela) {
 
     // 2. HUD Fixo na Tela (restaura view padrão)
     janela.setView(janela.getDefaultView());
+
+    // Barra de topo
+    std::string nomeProva;
+    if (_numeroProvaAtual == 1) nomeProva = "P1 (Limites)";
+    else if (_numeroProvaAtual == 2) nomeProva = "P2 (Derivadas)";
+    else if (_numeroProvaAtual == 3) nomeProva = "P3 (Integrais)";
+    else nomeProva = "P4 (Exame Final)";
+
+    _textoHudSuperior.setString(
+        "Semestre: " + nomeProva +
+        "   |   Pontos: " + std::to_string(pontuacao) + "/100" +
+        "   |   Cansaco: " + std::to_string(cansaco) + "/100" +
+        "   |   Cafe: " + std::to_string(qtdCafe) +
+        "   |   Livros: " + std::to_string(qtdDica)
+    );
+
+    janela.draw(_barraHudSuperior);
+    janela.draw(_textoHudSuperior);
     janela.draw(_textoStatus);
 
     if (_tempoMensagem > 0.0f) {

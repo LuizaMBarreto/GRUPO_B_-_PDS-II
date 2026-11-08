@@ -6,6 +6,7 @@
 #include <string>
 #include "Jogador.hpp"
 #include "Questao.hpp"
+#include "Prova.hpp"
 #include "interface/Botao.hpp"
 
 enum class ResultadoBatalha {
@@ -14,21 +15,38 @@ enum class ResultadoBatalha {
     DERROTA
 };
 
+enum class ModoBatalha {
+    ACOES_PRINCIPAIS,
+    SELECIONANDO_HABILIDADE,
+    SELECIONANDO_ITEM
+};
+
 /**
  * @class BatalhaGUI
  * @brief Gerencia a tela de batalha por turnos com navegação 100% via teclado (WASD/Enter).
+ *        Permite selecionar habilidades matemáticas reais do jogador e usar itens de inventário.
  */
 class BatalhaGUI {
 private:
     const sf::Font& _fonte;
     Jogador& _jogador;
+    std::vector<Questao> _questoes;
+    size_t _indiceQuestaoAtual;
     Questao _questao;
     ResultadoBatalha _resultado;
+    ModoBatalha _modo;
+    int _numeroProva;
 
     // Componentes visuais
     sf::RectangleShape _fundo;
     sf::RectangleShape _caixaQuestao;
     sf::RectangleShape _caixaDialogo;
+
+    // Submenu de Habilidades / Itens
+    sf::RectangleShape _painelSubmenu;
+    sf::Text _tituloSubmenu;
+    std::vector<sf::Text> _textosSubmenu;
+    int _indiceSubmenuSelecionado;
 
     // Barras de status
     sf::RectangleShape _barraVidaFundo;
@@ -44,17 +62,26 @@ private:
     sf::Text _textoMensagemLog2;
     sf::Text _textoInstrucaoTeclado;
 
-    // Botões de Ações (A/D ou W/S para navegar, Enter/Espaço para usar)
+    // Botões de Ações Principais
     std::vector<Botao> _botoesAcao;
     int _indiceAcaoSelecionada;
 
     int _vidaInicial;
     bool _batalhaConcluida;
+    bool _aguardandoAvancoQuestao;
 
     void atualizarBarras();
+    void atualizarEnunciado();
+    void atualizarSubmenu();
     void executarTurnoInimigo();
+    void avancarParaProximaQuestao();
 
 public:
+    // Construtor principal para Prova inteira
+    BatalhaGUI(float larguraJanela, float alturaJanela, const sf::Font& fonte,
+               Jogador& jogador, const Prova& prova, int numeroProva = 1);
+
+    // Construtor de compatibilidade para Questão única
     BatalhaGUI(float larguraJanela, float alturaJanela, const sf::Font& fonte,
                Jogador& jogador, const Questao& questao);
 
@@ -67,4 +94,3 @@ public:
 };
 
 #endif // BATALHA_GUI_HPP
-

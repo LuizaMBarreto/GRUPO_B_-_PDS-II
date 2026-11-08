@@ -32,6 +32,9 @@ int dificuldade; ///< nivel de dificuldade da prova (usualmente definida pela di
 
   */
 Prova();
+Prova(int assunto, int dificuldade);
+
+void adicionarQuestao(const Questao& questao);
 /**
  * @brief obtem o valor associdado ao assunto da prova
  * @return retorma o valor associado ao tipo da prova
