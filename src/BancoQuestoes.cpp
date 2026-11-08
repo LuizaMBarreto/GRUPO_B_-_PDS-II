@@ -79,7 +79,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         1,
         50,
         "O numerador e uma diferenca de quadrados: x^2 - 9 = (x - 3)(x + 3). Fatore para cancelar o termo (x - 3).",
-        15
+        15,
+        "lim (x -> 3) [ (x^2 - 9) / (x - 3) ]"
     );
 
     Questao q2(
@@ -87,7 +88,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         2,
         75,
         "Multiplique numerador e denominador pela expressao conjugada (sqrt(t^2 + 9) + 3).",
-        12
+        12,
+        "lim (t -> 0) [ (sqrt(t^2 + 9) - 3) / t^2 ]"
     );
 
     p1.adicionarQuestao(q1);
@@ -104,7 +106,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         2,
         75,
         "Identifique a funcao externa u^4 e a interna u = 3x^2 - 5x + 2. Aplique d/dx[f(u)] = f'(u) * u'.",
-        18
+        18,
+        "f(x) = (3x^2 - 5x + 2)^4  -->  Encontre f'(x)"
     );
 
     Questao q4(
@@ -112,7 +115,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         1,
         50,
         "Quociente de duas funcoes lineares. Use a Regra do Quociente: (f/g)' = (g*f' - f*g') / g^2.",
-        10
+        10,
+        "g(x) = (3x - 1) / (2x + 1)  -->  Encontre g'(x)"
     );
 
     p2.adicionarQuestao(q3);
@@ -129,7 +133,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         3,
         100,
         "Use a regra de partes integral(u dv) = uv - integral(v du), escolhendo u = x e dv = sen(x)dx.",
-        20
+        20,
+        "integral [ x * sin(x) dx ]"
     );
 
     Questao q6(
@@ -137,7 +142,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         2,
         75,
         "Use a regra da substituicao escolhendo u = 1 + e^x, cuja diferencial e du = e^x dx.",
-        15
+        15,
+        "integral [ e^x * sqrt(1 + e^x) dx ]"
     );
 
     p3.adicionarQuestao(q5);
@@ -154,7 +160,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         2,
         75,
         "Se apos derivar uma vez a indeterminacao continuar, aplique a Regra de L'Hopital novamente.",
-        20
+        20,
+        "lim (x -> 0) [ x^2 / (1 - cos(x)) ]"
     );
 
     Questao q8(
@@ -162,7 +169,8 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
         3,
         100,
         "Fatore o denominador como (x - 1)(x + 1) e decomponha em A/(x - 1) + B/(x + 1).",
-        20
+        20,
+        "integral [ (5x - 1) / (x^2 - 1) dx ]"
     );
 
     p4.adicionarQuestao(q7);

@@ -5,8 +5,9 @@
 
 
 Questao::Questao(std::string assunto, int dificuldade,
-int vidaResolucao, std::string dica, int danoContraAtaque):
+int vidaResolucao, std::string dica, int danoContraAtaque, std::string equacao):
   _assunto(assunto),
+  _equacao(equacao),
   _nomeContraAtaque("Ataque da Questao"),
   _dificuldade(dificuldade),
   _vidaResolucao(vidaResolucao),
@@ -28,6 +29,14 @@ int vidaResolucao, std::string dica, int danoContraAtaque):
 
 std::string Questao::getAssunto() const{
 	return _assunto;
+}
+
+std::string Questao::getEquacao() const{
+	return _equacao;
+}
+
+void Questao::setEquacao(const std::string& novaEquacao){
+	_equacao = novaEquacao;
 }
 
 std::string Questao::getNomeContraAtaque() const{

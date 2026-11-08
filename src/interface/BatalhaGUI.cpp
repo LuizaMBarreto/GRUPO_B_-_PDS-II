@@ -139,9 +139,12 @@ void BatalhaGUI::atualizarEnunciado() {
     size_t total = _questoes.empty() ? 1 : _questoes.size();
     size_t atual = _indiceQuestaoAtual + 1;
 
+    std::string strEquacao = _questao.getEquacao().empty() ? "" : ("\nEquacao: " + _questao.getEquacao());
+
     _textoEnunciado.setString(
         nomeProva + "  (Questao " + std::to_string(atual) + " de " + std::to_string(total) + ")\n\n" +
-        "Desafio: " + _questao.getAssunto() + " (Dificuldade " + std::to_string(_questao.getDificuldade()) + ")\n" +
+        "Desafio: " + _questao.getAssunto() + " (Dificuldade " + std::to_string(_questao.getDificuldade()) + ")" +
+        strEquacao + "\n" +
         "Resolva o exercicio aplicando as tecnicas e finalize com Fechamento!"
     );
 }

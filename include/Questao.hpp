@@ -19,6 +19,7 @@ class Jogador;
 class Questao {
 private:
     std::string _assunto;               /**< Tema da questão (Limite, Derivada, Integral) */
+    std::string _equacao;               /**< Expressão/Equação matemática da questão */
     std::string _nomeContraAtaque;      /**< Nome do Ataque usado pela Questão*/
     int _dificuldade;                   /**< Nível de dificuldade (1 a 3) */
     int _vidaResolucao;                 /**< "Pontos de vida"/dificuldade técnica restante */
@@ -36,10 +37,12 @@ public:
      * @param dificuldade Dificuldade (1=Fácil, 2=Média, 3=Difícil).
      * @param vidaResolucao Quantidade de pontos necessários para ser resolvida.
      * @param dica Dica associada à resolução.
+     * @param danoContraAtaque Dano que a questão causa ao contra-atacar.
+     * @param equacao Expressão matemática associada à questão.
      *@throws ParametroInvalidoException se  vidaResolução for menor do que 0.
      *@throws ParametroInvalidoException se dificuldade for menor do que 1 e maior do que 3.
      */
-    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque = 15);
+    Questao(std::string assunto, int dificuldade, int vidaResolucao, std::string dica, int danoContraAtaque = 15, std::string equacao = "");
 
     /** @brief Destrutor padrão */
     virtual ~Questao() = default;
@@ -104,11 +107,13 @@ public:
     **/
     void concluirEtapaPrevia();
     void ConcluirEtapaPrevia();
+    void setEquacao(const std::string& novaEquacao);
 
-   
+
 
     // Getters
     std::string getAssunto() const;
+    std::string getEquacao() const;
     std::string getNomeContraAtaque() const;
     std::string NomeContraAtaque() const;
     int getDificuldade() const;
