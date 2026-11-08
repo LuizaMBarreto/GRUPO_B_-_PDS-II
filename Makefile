@@ -11,6 +11,11 @@ game:
 run: game
 	./build/rpg_game
 
+terminal:
+	mkdir -p build
+	$(CC) $(CFLAGS) src/*.cpp src/terminal/*.cpp -o build/rpg_terminal
+	./build/rpg_terminal
+
 test:
 	mkdir -p build
 	$(CC) $(CFLAGS) src/*.cpp tests/*.cpp -o build/test_runner
