@@ -60,6 +60,7 @@ private:
     sf::Text _textoCansaco;
     sf::Text _textoMensagemLog1;
     sf::Text _textoMensagemLog2;
+    sf::Text _textoMensagemLog3;
     sf::Text _textoInstrucaoTeclado;
 
     // Botões de Ações Principais
@@ -69,6 +70,7 @@ private:
     int _vidaInicial;
     bool _batalhaConcluida;
     bool _aguardandoAvancoQuestao;
+    bool _aguardandoEncerramentoBatalha;
 
     void atualizarBarras();
     void atualizarEnunciado();
