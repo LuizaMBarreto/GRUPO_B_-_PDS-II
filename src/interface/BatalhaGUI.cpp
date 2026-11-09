@@ -1,4 +1,4 @@
-#include "interface/BatalhaGUI.hpp"
+#include "../../include/interface/BatalhaGUI.hpp"
 #include <algorithm>
 
 BatalhaGUI::BatalhaGUI(float larguraJanela, float alturaJanela, const sf::Font& fonte,
@@ -149,8 +149,8 @@ void BatalhaGUI::atualizarEnunciado() {
     std::string strEquacao = _questao.getEquacao().empty() ? "" : ("\nEquacao: " + _questao.getEquacao());
 
     _textoEnunciado.setString(
-        nomeProva + "  (Questao " + std::to_string(atual) + " de " + std::to_string(total) + ")\n\n" +
-        "Desafio: " + _questao.getAssunto() + " (Dificuldade " + std::to_string(_questao.getDificuldade()) + ")" +
+        nomeProva + "  (Questao " + std::to_string(atual) + " de " + std::to_string(total) + ")\n\n" 
+        + "(Dificuldade " + std::to_string(_questao.getDificuldade()) + ")" +
         strEquacao + "\n" +
         "Resolva o exercicio aplicando as tecnicas e finalize com Fechamento!"
     );
