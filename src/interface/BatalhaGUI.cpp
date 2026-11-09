@@ -385,12 +385,55 @@ void BatalhaGUI::processarEventos(const sf::Event& evento) {
                 std::string nomeHab = hab.getNome();
 
                 if (!hab.afetaInimigo()) {
-                    hab.aplicarEfeito(_jogador);
-                    _textoMensagemLog1.setString("Voce usou '" + nomeHab + "'!");
-                    _textoMensagemLog2.setString("Cansaco reduzido em " + std::to_string(hab.getEfeitoValor()) + " pontos. Cansaco: " + std::to_string(_jogador.getCansaco()) + " / 100.");
-                    _textoMensagemLog3.setString("");
-                    _modo = ModoBatalha::ACOES_PRINCIPAIS;
-                    executarTurnoInimigo();
+
+    if (nomeHab == "Pausa para o Cafe") {
+        const auto& itens = _jogador.getItens();
+
+        int indiceCafe = -1;
+
+        for (size_t i = 0; i < itens.size(); ++i) {
+            if (itens[i].getNome() == "Cafe Quente" &&
+                itens[i].getQuantidade() > 0) {
+                indiceCafe = static_cast<int>(i);
+                break;
+            }
+        }
+
+        if (indiceCafe == -1) {
+            _textoMensagemLog1.setString("Voce precisa de Cafe Quente!");
+            _textoMensagemLog2.setString("Nao ha cafe disponivel no inventario.");
+            _textoMensagemLog3.setString("");
+            _modo = ModoBatalha::ACOES_PRINCIPAIS;
+        } else {
+            _jogador.usarItem(indiceCafe);
+
+            _textoMensagemLog1.setString("Voce usou 'Pausa para o Cafe'!");
+            _textoMensagemLog2.setString(
+                "Cafe consumido. Cansaco: " +
+                std::to_string(_jogador.getCansaco()) + " / 100."
+            );
+            _textoMensagemLog3.setString("");
+
+            _modo = ModoBatalha::ACOES_PRINCIPAIS;
+            executarTurnoInimigo();
+        }
+
+     else {
+        hab.aplicarEfeito(_jogador);
+
+        _textoMensagemLog1.setString("Voce usou '" + nomeHab + "'!");
+        _textoMensagemLog2.setString(
+            "Cansaco reduzido em " +
+            std::to_string(hab.getEfeitoValor()) +
+            " pontos. Cansaco: " +
+            std::to_string(_jogador.getCansaco()) + " / 100."
+        );
+        _textoMensagemLog3.setString("");
+
+        _modo = ModoBatalha::ACOES_PRINCIPAIS;
+        executarTurnoInimigo();
+    }
+}
                 } else {
                     // Regras de compatibilidade temática matemática (Stewart):
                     // Prova 1 (Limites): "Fatoracao Algebrica", "Multiplicar Conjugado", "Regra de L'Hopital"
