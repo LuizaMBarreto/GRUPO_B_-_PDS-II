@@ -111,11 +111,6 @@ void JogoGUI::processarEventos() {
                         _batalhaGUI.reset();
                     }
                 }
-
-                if (evento.type == sf::Event::KeyPressed && evento.key.code == sf::Keyboard::Escape) {
-                    _estadoAtual = EstadoJogo::EXPLORACAO;
-                    _batalhaGUI.reset();
-                }
             }
         } else if (_estadoAtual == EstadoJogo::GAME_OVER || _estadoAtual == EstadoJogo::VITORIA) {
             if (evento.type == sf::Event::KeyPressed) {
