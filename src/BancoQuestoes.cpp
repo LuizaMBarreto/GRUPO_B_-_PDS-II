@@ -1,3 +1,4 @@
+
 #include "BancoQuestoes.hpp"
 #include "Habilidade.hpp"
 #include "Item.hpp"
@@ -7,7 +8,7 @@
 Jogador BancoQuestoes::criarJogadorInicial(const std::string& nome) {
     Jogador jogador(nome, 0, 10);
 
-    // Habilidades matemáticas
+    // Habilidades básicas de limites
     jogador.adicionarHabilidade(Habilidade(
         "Fatoracao Algebrica",
         "Simplifica indeterminacoes polinomiais 0/0 por diferenca de quadrados",
@@ -20,49 +21,6 @@ Jogador BancoQuestoes::criarJogadorInicial(const std::string& nome) {
         "Racionaliza expressoes com raiz no limite",
         35,
         true
-    ));
-
-    jogador.adicionarHabilidade(Habilidade(
-        "Regra da Cadeia",
-        "Deriva composicoes de funcoes f(g(x))",
-        35,
-        true
-    ));
-
-    jogador.adicionarHabilidade(Habilidade(
-        "Integracao por Partes",
-        "Aplica a formula integral(u dv) = uv - integral(v du)",
-        35,
-        true
-    ));
-
-    jogador.adicionarHabilidade(Habilidade(
-        "Regra de L'Hopital",
-        "Deriva numerador e denominador para resolver indeterminacoes persistentes",
-        30,
-        true
-    ));
-
-    jogador.adicionarHabilidade(Habilidade(
-        "Pausa para o Cafe",
-        "Faz uma pausa rapida para respirar e recuperar a energia",
-        20,
-        false
-    ));
-
-    // Itens iniciais no inventário
-    jogador.adicionarItem(Item(
-        "Cafe Quente",
-        "Reduz o cansaco em 20 pontos",
-        2,
-        "CURA_ENERGIA"
-    ));
-
-    jogador.adicionarItem(Item(
-        "Livro de Stewart",
-        "Consulta anotacoes teoricas com dicas essenciais",
-        2,
-        "DICA"
     ));
 
     return jogador;
@@ -177,4 +135,3 @@ void BancoQuestoes::carregarProvasNoSemestre(Semestre& semestre) {
     p4.adicionarQuestao(q8);
     semestre.adicionarProva(p4);
 }
-
