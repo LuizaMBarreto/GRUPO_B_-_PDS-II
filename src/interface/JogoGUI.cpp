@@ -1,6 +1,7 @@
 #include "interface/JogoGUI.hpp"
 #include "BancoQuestoes.hpp"
 #include <iostream>
+#include <exception>
 
 JogoGUI::JogoGUI(unsigned int largura, unsigned int altura)
     : _janela(sf::VideoMode(largura, altura), "Derrote Calculo I", sf::Style::Titlebar | sf::Style::Close),
@@ -17,11 +18,11 @@ JogoGUI::JogoGUI(unsigned int largura, unsigned int altura)
 }
 
 void JogoGUI::carregarFonte() {
-    if (!_fonte.loadFromFile("assets/fonts/default.ttf")) {
-        if (!_fonte.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")) {
-            std::cerr << "[AVISO] Nao foi possivel carregar a fonte padrao!" << std::endl;
-        }
-    }
+  if (_fonte.loadFromFile("assets/fonts/default.ttf")) return;
+    if (_fonte.loadFromFile("C:/Windows/Fonts/arial.ttf")) return;
+    if (_fonte.loadFromFile("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")) return;
+    std::cerr << "[AVISO] Nao foi possivel carregar nenhuma fonte!" << std::endl;
+
 }
 
 void JogoGUI::iniciarNovoJogo() {
@@ -53,9 +54,13 @@ void JogoGUI::executar() {
     while (_janela.isOpen()) {
         float dt = relogio.restart().asSeconds();
 
-        processarEventos();
-        atualizar(dt);
-        renderizar();
+        try {
+            processarEventos();
+            atualizar(dt);
+            renderizar();
+        } catch (const std::exception& e) {
+            std::cerr << "[ERRO] " << e.what() << std::endl;
+        }
     }
 }
 
