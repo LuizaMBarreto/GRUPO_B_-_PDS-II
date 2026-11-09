@@ -37,7 +37,7 @@ TEST_CASE("BancoQuestoes - Criacao do jogador inicial de Calculo I") {
 
         for (const auto& item : jogador.getItens()) {
             if (item.getNome() == "Cafe Quente") temCafe = true;
-            if (item.getNome() == "Livro de Stewart") temLivro = true;
+            if (item.getNome() == "Anotacoes") temLivro = true;
         }
 
         CHECK(temCafe);

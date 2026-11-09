@@ -42,7 +42,7 @@ TEST_CASE("BatalhaTerminal - Exibicao e processamento de opcoes no terminal") {
 
         CHECK(texto.find("LISTA DE ITENS") != std::string::npos);
         CHECK(texto.find("Cafe Quente") != std::string::npos);
-        CHECK(texto.find("Livro de Stewart") != std::string::npos);
+        CHECK(texto.find("Anotacoes") != std::string::npos);
     }
 
     SUBCASE("Opcao 3 imprime a dica da questao") {

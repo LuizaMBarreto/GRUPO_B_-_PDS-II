@@ -170,6 +170,10 @@ bool BatalhaTerminal::usarItem(size_t indiceItem, std::ostream& out) {
     Item item = itens[indiceItem]; // Cópia das informações antes do uso
     std::string nomeItem = item.getNome();
     std::string tipoEfeito = item.getTipoEfeito();
+     if (item.getQuantidade() <= 0) {
+        out << "\nVoce nao tem mais '" << nomeItem << "'! Colete mais para poder usar.\n";
+        return false;
+    }
 
     if (tipoEfeito == "CURA_ENERGIA") {
         _jogador.usarItem(indiceItem);
@@ -182,7 +186,7 @@ bool BatalhaTerminal::usarItem(size_t indiceItem, std::ostream& out) {
         _jogador.usarItem(indiceItem);
         out << "\n[ITEM USADO] Voce consultou o '" << nomeItem << "'!\n";
         out << "Stewart (Anotacao revelada): \"" << q.fornecerDica() << "\"\n";
-        out << "(Consultar o livro de dicas nao consome turno da batalha)\n";
+        out << "(Consultar as anotacoes nao consome turno da batalha)\n";
     } else {
         _jogador.usarItem(indiceItem);
         out << "\nVoce usou '" << nomeItem << "'.\n";

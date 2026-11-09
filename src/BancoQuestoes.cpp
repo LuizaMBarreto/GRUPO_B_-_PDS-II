@@ -54,14 +54,14 @@ Jogador BancoQuestoes::criarJogadorInicial(const std::string& nome) {
     jogador.adicionarItem(Item(
         "Cafe Quente",
         "Reduz o cansaco em 20 pontos",
-        2,
+        0,
         "CURA_ENERGIA"
     ));
 
     jogador.adicionarItem(Item(
-        "Livro de Stewart",
+        "Anotacoes",
         "Consulta anotacoes teoricas com dicas essenciais",
-        2,
+        0,
         "DICA"
     ));
 
