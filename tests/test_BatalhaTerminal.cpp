@@ -32,6 +32,7 @@ TEST_CASE("BatalhaTerminal - Exibicao e processamento de opcoes no terminal") {
 
         CHECK(texto.find("LISTA DE HABILIDADES") != std::string::npos);
         CHECK(texto.find("Fatoracao Algebrica") != std::string::npos);
+        CHECK(texto.find("Multiplicar Conjugado") != std::string::npos);
         CHECK(texto.find("Regra da Cadeia") != std::string::npos);
     }
 
@@ -42,6 +43,7 @@ TEST_CASE("BatalhaTerminal - Exibicao e processamento de opcoes no terminal") {
 
         CHECK(texto.find("LISTA DE ITENS") != std::string::npos);
         CHECK(texto.find("Cafe Quente") != std::string::npos);
+        CHECK(texto.find("Nenhum item no inventario.") != std::string::npos);
         CHECK(texto.find("Livro de Stewart") != std::string::npos);
     }
 
