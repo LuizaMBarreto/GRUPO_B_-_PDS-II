@@ -9,39 +9,18 @@ TEST_CASE("BancoQuestoes - Criacao do jogador inicial de Calculo I") {
 
     CHECK(jogador.getCansaco() == 0);
     CHECK(jogador.getDano() == 10);
-    CHECK(jogador.getHabilidades().size() >= 5);
-    CHECK(jogador.getItens().size() >= 2);
 
-    SUBCASE("Habilidades iniciais contemplam conteudos de Limites, Derivadas e Integrais") {
-        bool temFatoracao = false;
-        bool temCadeia = false;
-        bool temPartes = false;
-        bool temSuporte = false;
+    SUBCASE("Jogador comeca apenas com as habilidades basicas de limites") {
+        const auto& habilidades = jogador.getHabilidades();
 
-        for (const auto& hab : jogador.getHabilidades()) {
-            if (hab.getNome() == "Fatoracao Algebrica") temFatoracao = true;
-            if (hab.getNome() == "Regra da Cadeia") temCadeia = true;
-            if (hab.getNome() == "Integracao por Partes") temPartes = true;
-            if (!hab.afetaInimigo()) temSuporte = true;
-        }
+        REQUIRE(habilidades.size() == 2);
 
-        CHECK(temFatoracao);
-        CHECK(temCadeia);
-        CHECK(temPartes);
-        CHECK(temSuporte);
+        CHECK(habilidades[0].getNome() == "Fatoracao Algebrica");
+        CHECK(habilidades[1].getNome() == "Multiplicar Conjugado");
     }
 
-    SUBCASE("Itens iniciais incluem cafe e livro de dicas") {
-        bool temCafe = false;
-        bool temLivro = false;
-
-        for (const auto& item : jogador.getItens()) {
-            if (item.getNome() == "Cafe Quente") temCafe = true;
-            if (item.getNome() == "Livro de Stewart") temLivro = true;
-        }
-
-        CHECK(temCafe);
-        CHECK(temLivro);
+    SUBCASE("Jogador comeca com inventario vazio") {
+        CHECK(jogador.getItens().empty());
     }
 }
 
