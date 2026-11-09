@@ -44,7 +44,7 @@ Jogador BancoQuestoes::criarJogadorInicial(const std::string& nome) {
     ));
 
     jogador.adicionarHabilidade(Habilidade(
-        "Pausa para o Cafe",
+        "Tomar um ar",
         "Faz uma pausa rapida para respirar e recuperar a energia",
         20,
         false
