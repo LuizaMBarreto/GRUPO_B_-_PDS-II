@@ -202,7 +202,7 @@ void MapaExploracao::adicionarItens() {
 
     // 1. Café Quente no Corredor
     ItemNoMapa cafe;
-    cafe.nome = "Cafe";
+    cafe.nome = "Cafe Quente";
     cafe.posicao = sf::Vector2f(200.0f, 350.0f);
     cafe.coletado = false;
     cafe.ambiente = TipoAmbiente::CORREDOR;
@@ -283,8 +283,8 @@ void MapaExploracao::processarEventos(const sf::Event& evento, Jogador& jogador)
                     float distItem = std::hypot(_posicaoJogador.x - item.posicao.x, _posicaoJogador.y - item.posicao.y);
                     if (distItem < 45.0f) {
                         item.coletado = true;
-                        if (item.nome == "Cafe") {
-                            jogador.adicionarItem(Item("Cafe", "Reduz o cansaco em 10 pontos", 1, "CURA_ENERGIA"));
+                        if (item.nome == "Cafe Quente") {
+                            jogador.adicionarItem(Item("Cafe Quente", "Reduz o cansaco em 20 pontos", 1, "CURA_ENERGIA"));
                             _textoMensagem.setString("Voce pegou: Cafe Quente! (+1 no inventario)");
                         } else {
                             jogador.adicionarItem(Item("Dica de Calculo", "Revela a dica da questao", 1, "DICA"));
