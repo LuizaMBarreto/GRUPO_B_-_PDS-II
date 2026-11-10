@@ -462,7 +462,7 @@ void BatalhaGUI::processarEventos(const sf::Event& evento) {
 
                     _modo = ModoBatalha::ACOES_PRINCIPAIS;
 
-                    if (_questao.getVidaResolucao() <= 0) {
+                    if (_questao.getVidaResolucao() <= 0 !_questao.isResolvida()) {
                         _questao.concluirEtapaPrevia();
                         _questao.tentarFinalizar();
                     }
@@ -589,7 +589,7 @@ void BatalhaGUI::processarEventos(const sf::Event& evento) {
             _textoMensagemLog3.setString("");
         } else if (_indiceAcaoSelecionada == 3) {
             // 4. Finalizar
-            if (_questao.isProntaParaFinalizar()) {
+            if (_questao.isProntaParaFinalizar() () && !_questao.isResolvida()) {
                 _questao.tentarFinalizar();
                 _textoMensagemLog1.setString("[SUCESSO] Fechamento e Substituicao Direta realizados!");
 
