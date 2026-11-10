@@ -333,7 +333,10 @@ void BatalhaGUI::processarEventos(const sf::Event& evento) {
     // Se estiver aguardando confirmação final para encerrar a batalha (vitória ou derrota)
     if (_aguardandoEncerramentoBatalha) {
         if (evento.key.code == sf::Keyboard::Return || evento.key.code == sf::Keyboard::Space) {
-            _batalhaConcluida = true;
+           if (_resultado == ResultadoBatalha::VITORIA) {
+             _jogador.resetarCansaco(); //se o estudante vencer a prova, ele descansa
+           }
+          _batalhaConcluida = true;
         }
         return;
     }
