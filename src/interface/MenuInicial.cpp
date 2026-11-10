@@ -1,4 +1,4 @@
-#include "interface/MenuInicial.hpp"
+#include "../../include/interface/MenuInicial.hpp"
 
 MenuInicial::MenuInicial(float larguraJanela, float alturaJanela, const sf::Font& fonte)
     : _fonte(fonte), _indiceSelecionado(0) {
@@ -19,7 +19,7 @@ MenuInicial::MenuInicial(float larguraJanela, float alturaJanela, const sf::Font
 
     // Subtítulo
     _subtitulo.setFont(_fonte);
-    _subtitulo.setString("Derrote Cálculo I");
+    _subtitulo.setString("Derrote Calculo I");
     _subtitulo.setCharacterSize(22);
     _subtitulo.setFillColor(sf::Color(180, 200, 230));
     sf::FloatRect boundsS = _subtitulo.getLocalBounds();

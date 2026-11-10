@@ -2,3 +2,4 @@ build/
 *.gcda
 *.gcno
 *.gcov
+.vscode/tasks.json

@@ -1,4 +1,4 @@
-#include "interface/BatalhaGUI.hpp"
+#include "../../include/interface/BatalhaGUI.hpp"
 #include <algorithm>
 
 BatalhaGUI::BatalhaGUI(float larguraJanela, float alturaJanela, const sf::Font& fonte,
@@ -149,8 +149,8 @@ void BatalhaGUI::atualizarEnunciado() {
     std::string strEquacao = _questao.getEquacao().empty() ? "" : ("\nEquacao: " + _questao.getEquacao());
 
     _textoEnunciado.setString(
-        nomeProva + "  (Questao " + std::to_string(atual) + " de " + std::to_string(total) + ")\n\n" +
-        "Desafio: " + _questao.getAssunto() + " (Dificuldade " + std::to_string(_questao.getDificuldade()) + ")" +
+        nomeProva + "  (Questao " + std::to_string(atual) + " de " + std::to_string(total) + ")\n\n" 
+        + "(Dificuldade " + std::to_string(_questao.getDificuldade()) + ")" +
         strEquacao + "\n" +
         "Resolva o exercicio aplicando as tecnicas e finalize com Fechamento!"
     );
@@ -216,25 +216,33 @@ void BatalhaGUI::atualizarSubmenu() {
             } else {
                 linha = "  " + std::to_string(i + 1) + ". " + habs[i].getNome();
             }
-
             if (habs[i].afetaInimigo()) {
-                linha += "  [-" + std::to_string(habs[i].getEfeitoValor()) + " HP] (" + habs[i].getDescricao() + ")";
+                linha += "  [-" + std::to_string(habs[i].getEfeitoValor()) + " HP]";
             } else {
-                linha += "  [-" + std::to_string(habs[i].getEfeitoValor()) + " Cansaco] (" + habs[i].getDescricao() + ")";
+            linha += "  [-" + std::to_string(habs[i].getEfeitoValor()) + " Cansaco]";
             }
-
             sf::Text t(linha, _fonte, 15);
             float yPos = 505.0f + (float)(i % 4) * 28.0f;
             float xPos = (i < 4) ? 75.0f : 520.0f;
-            t.setPosition(xPos, yPos);
-
+             t.setPosition(xPos, yPos);
             if ((int)i == _indiceSubmenuSelecionado) {
-                t.setFillColor(sf::Color(255, 230, 80));
+             t.setFillColor(sf::Color(255, 230, 80));
             } else {
-                t.setFillColor(sf::Color(200, 210, 225));
+             t.setFillColor(sf::Color(200, 210, 225));
             }
             _textosSubmenu.push_back(t);
         }
+
+        std::string descricoes;
+        for (size_t i = 0; i < habs.size(); ++i) {
+            if (i > 0) descricoes += "\n";
+            descricoes += std::to_string(i + 1) + ". " + habs[i].getDescricao();
+        }
+        _textoMensagemLog1.setString(descricoes);
+        _textoMensagemLog2.setString("");
+        _textoMensagemLog3.setString("");
+
+        
     } else if (_modo == ModoBatalha::SELECIONANDO_ITEM) {
         _tituloSubmenu.setString("INVENTARIO DE ITENS [W/S ou 1-9: Escolher | ENTER: Consumir | ESC: Voltar]");
         const auto& itens = _jogador.getItens();

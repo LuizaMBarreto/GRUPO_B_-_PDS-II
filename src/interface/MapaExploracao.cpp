@@ -5,8 +5,16 @@
 MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf::Font& fonte)
     : _fonte(fonte),
       _ambienteAtual(TipoAmbiente::CORREDOR),
+      _temTexturaPersonagem(false),
+      _temTexturaFrente(false),
+      _temTexturaTras(false),
+      _temTexturaCarteira(false),
       _posicaoJogador(500.0f, 350.0f),
       _velocidadeJogador(240.0f),
+      _frameAnimacao(0),
+      _tempoAnimacao(0.0f),
+      _direcaoOlhar(DirecaoOlhar::BAIXO),
+      _emMovimento(false),
       _temTexturaChao(false),
       _numeroProvaAtual(1),
       _tempoMensagem(0.0f),
@@ -33,12 +41,26 @@ MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf
     _textoHudSuperior.setPosition(20.0f, 10.0f);
 
     // Sprite do Estudante (Jogador)
-    _spriteJogador.setSize(sf::Vector2f(32.0f, 32.0f));
-    _spriteJogador.setFillColor(sf::Color(70, 150, 255)); // Azul do estudante
-    _spriteJogador.setOutlineThickness(2.0f);
-    _spriteJogador.setOutlineColor(sf::Color::White);
-    _spriteJogador.setOrigin(16.0f, 16.0f);
-    _spriteJogador.setPosition(_posicaoJogador);
+    if (_temTexturaFrente) {
+        _spriteJogador.setTexture(_texturaFrente);
+        _spriteJogador.setTextureRect(sf::IntRect(0, 0, 364, 507));
+        _spriteJogador.setScale(0.148f, 0.148f);
+        _spriteJogador.setOrigin(182.0f, 253.5f);
+        _spriteJogador.setPosition(_posicaoJogador);
+    } else if (_temTexturaPersonagem) {
+        _spriteJogador.setTexture(_texturaPersonagem);
+        _spriteJogador.setTextureRect(sf::IntRect(4 * 638, 0, 638, 858));
+        _spriteJogador.setScale(0.0874f, 0.0874f);
+        _spriteJogador.setOrigin(319.0f, 429.0f);
+        _spriteJogador.setPosition(_posicaoJogador);
+    } else {
+        _fallbackJogador.setSize(sf::Vector2f(32.0f, 32.0f));
+        _fallbackJogador.setFillColor(sf::Color(70, 150, 255));
+        _fallbackJogador.setOutlineThickness(2.0f);
+        _fallbackJogador.setOutlineColor(sf::Color::White);
+        _fallbackJogador.setOrigin(16.0f, 16.0f);
+        _fallbackJogador.setPosition(_posicaoJogador);
+    }
 
     // Textos do HUD
     _textoInteracao.setFont(_fonte);
@@ -62,6 +84,22 @@ MapaExploracao::MapaExploracao(float larguraJanela, float alturaJanela, const sf
 }
 
 void MapaExploracao::carregarTexturas() {
+    if (_texturaPersonagem.loadFromFile("assets/sprites/personagem.png")) {
+        _temTexturaPersonagem = true;
+    }
+
+    if (_texturaFrente.loadFromFile("assets/sprites/personagem_fente.png")) {
+        _temTexturaFrente = true;
+    }
+
+    if (_texturaTras.loadFromFile("assets/sprites/personagem_tras.png")) {
+        _temTexturaTras = true;
+    }
+
+    if (_texturaCarteira.loadFromFile("assets/sprites/cadeira.png")) {
+        _temTexturaCarteira = true;
+    }
+
     if (_texturaChao.loadFromFile("assets/sprites/chao.png")) {
         _texturaChao.setRepeated(true);
         _temTexturaChao = true;
@@ -71,6 +109,7 @@ void MapaExploracao::carregarTexturas() {
 void MapaExploracao::trocarAmbiente(TipoAmbiente novo) {
     _ambienteAtual = novo;
     _paredes.clear();
+    _paredesVisuais.clear();
 
     if (_ambienteAtual == TipoAmbiente::CORREDOR) {
         configurarCorredor();
@@ -109,11 +148,17 @@ void MapaExploracao::configurarCorredor() {
     _placaCorredor.setPosition(375.0f, 215.0f);
 
     // Paredes do Corredor
-    _paredes.push_back(sf::FloatRect(40.0f, 230.0f, 430.0f, 20.0f));   // Parede cima esquerda
-    _paredes.push_back(sf::FloatRect(530.0f, 230.0f, 430.0f, 20.0f));  // Parede cima direita
-    _paredes.push_back(sf::FloatRect(40.0f, 450.0f, 920.0f, 20.0f));   // Parede inferior
-    _paredes.push_back(sf::FloatRect(30.0f, 230.0f, 20.0f, 240.0f));   // Parede esquerda
-    _paredes.push_back(sf::FloatRect(940.0f, 230.0f, 20.0f, 240.0f));  // Parede direita
+    std::vector<sf::FloatRect> paredesCorredor = {
+        sf::FloatRect(40.0f, 230.0f, 430.0f, 20.0f),   // Parede cima esquerda
+        sf::FloatRect(530.0f, 230.0f, 430.0f, 20.0f),  // Parede cima direita
+        sf::FloatRect(40.0f, 450.0f, 920.0f, 20.0f),   // Parede inferior
+        sf::FloatRect(30.0f, 230.0f, 20.0f, 240.0f),   // Parede esquerda
+        sf::FloatRect(940.0f, 230.0f, 20.0f, 240.0f)   // Parede direita
+    };
+    for (const auto& p : paredesCorredor) {
+        _paredes.push_back(p);
+        _paredesVisuais.push_back(p);
+    }
 }
 
 void MapaExploracao::configurarSalaDeAula() {
@@ -159,18 +204,26 @@ void MapaExploracao::configurarSalaDeAula() {
 
     // Carteiras dos alunos (Fileiras decorativas)
     _carteiras.clear();
+    _spritesCarteiras.clear();
     std::vector<sf::Vector2f> posCarteiras = {
         {270.0f, 290.0f}, {450.0f, 290.0f}, {630.0f, 290.0f},
         {270.0f, 400.0f}, {450.0f, 400.0f}, {630.0f, 400.0f}
     };
     for (const auto& pos : posCarteiras) {
-        sf::RectangleShape cart(sf::Vector2f(60.0f, 35.0f));
-        cart.setPosition(pos);
-        cart.setFillColor(sf::Color(120, 85, 60));
-        cart.setOutlineThickness(1.0f);
-        cart.setOutlineColor(sf::Color(180, 140, 100));
-        _carteiras.push_back(cart);
-        _paredes.push_back(sf::FloatRect(pos.x, pos.y, 60.0f, 35.0f)); // Colisão com as carteiras
+        if (_temTexturaCarteira) {
+            sf::Sprite sp(_texturaCarteira);
+            sp.setScale(0.145f, 0.145f); // ~53px de largura x ~71px de altura
+            sp.setPosition(pos.x + 3.0f, pos.y - 15.0f);
+            _spritesCarteiras.push_back(sp);
+        } else {
+            sf::RectangleShape cart(sf::Vector2f(60.0f, 35.0f));
+            cart.setPosition(pos);
+            cart.setFillColor(sf::Color(120, 85, 60));
+            cart.setOutlineThickness(1.0f);
+            cart.setOutlineColor(sf::Color(180, 140, 100));
+            _carteiras.push_back(cart);
+        }
+        _paredes.push_back(sf::FloatRect(pos.x, pos.y, 60.0f, 40.0f)); // Colisão com as carteiras
     }
 
     // Porta de saída para o Corredor
@@ -187,13 +240,19 @@ void MapaExploracao::configurarSalaDeAula() {
     _placaSaida.setPosition(477.0f, 568.0f);
 
     // Paredes da Sala de Aula
-    _paredes.push_back(sf::FloatRect(190.0f, 80.0f, 620.0f, 20.0f));   // Topo
-    _paredes.push_back(sf::FloatRect(180.0f, 80.0f, 20.0f, 530.0f));   // Esquerda
-    _paredes.push_back(sf::FloatRect(800.0f, 80.0f, 20.0f, 530.0f));   // Direita
-    _paredes.push_back(sf::FloatRect(190.0f, 600.0f, 280.0f, 20.0f));  // Baixo esquerda
-    _paredes.push_back(sf::FloatRect(530.0f, 600.0f, 280.0f, 20.0f));  // Baixo direita
+    std::vector<sf::FloatRect> paredesSala = {
+        sf::FloatRect(190.0f, 80.0f, 620.0f, 20.0f),   // Topo
+        sf::FloatRect(180.0f, 80.0f, 20.0f, 530.0f),   // Esquerda
+        sf::FloatRect(800.0f, 80.0f, 20.0f, 530.0f),   // Direita
+        sf::FloatRect(190.0f, 600.0f, 280.0f, 20.0f),  // Baixo esquerda
+        sf::FloatRect(530.0f, 600.0f, 280.0f, 20.0f)   // Baixo direita
+    };
+    for (const auto& p : paredesSala) {
+        _paredes.push_back(p);
+        _paredesVisuais.push_back(p);
+    }
 
-    // Mesa do professor bloqueia passagem
+    // Mesa do professor bloqueia passagem (colisão invisível)
     _paredes.push_back(sf::FloatRect(440.0f, 170.0f, 120.0f, 45.0f));
 }
 
@@ -202,7 +261,7 @@ void MapaExploracao::adicionarItens() {
 
     // 1. Café Quente no Corredor
     ItemNoMapa cafe;
-    cafe.nome = "Cafe";
+    cafe.nome = "Cafe Quente";
     cafe.posicao = sf::Vector2f(200.0f, 350.0f);
     cafe.coletado = false;
     cafe.ambiente = TipoAmbiente::CORREDOR;
@@ -249,6 +308,7 @@ void MapaExploracao::processarEventos(const sf::Event& evento, Jogador& jogador)
                     trocarAmbiente(TipoAmbiente::SALA_DE_AULA);
                     _posicaoJogador = sf::Vector2f(500.0f, 540.0f); // Surge na entrada da sala
                     _spriteJogador.setPosition(_posicaoJogador);
+                    _fallbackJogador.setPosition(_posicaoJogador);
                     _camera.setCenter(_posicaoJogador);
                     _textoMensagem.setString("Voce entrou na Sala 101: Sala de Prova!");
                     _tempoMensagem = 2.5f;
@@ -263,6 +323,7 @@ void MapaExploracao::processarEventos(const sf::Event& evento, Jogador& jogador)
                     trocarAmbiente(TipoAmbiente::CORREDOR);
                     _posicaoJogador = sf::Vector2f(500.0f, 290.0f); // Surge em frente à porta no corredor
                     _spriteJogador.setPosition(_posicaoJogador);
+                    _fallbackJogador.setPosition(_posicaoJogador);
                     _camera.setCenter(_posicaoJogador);
                     _textoMensagem.setString("Voce voltou ao Corredor.");
                     _tempoMensagem = 2.5f;
@@ -283,8 +344,8 @@ void MapaExploracao::processarEventos(const sf::Event& evento, Jogador& jogador)
                     float distItem = std::hypot(_posicaoJogador.x - item.posicao.x, _posicaoJogador.y - item.posicao.y);
                     if (distItem < 45.0f) {
                         item.coletado = true;
-                        if (item.nome == "Cafe") {
-                            jogador.adicionarItem(Item("Cafe", "Reduz o cansaco em 10 pontos", 1, "CURA_ENERGIA"));
+                        if (item.nome == "Cafe Quente") {
+                            jogador.adicionarItem(Item("Cafe Quente", "Reduz o cansaco em 20 pontos", 1, "CURA_ENERGIA"));
                             _textoMensagem.setString("Voce pegou: Cafe Quente! (+1 no inventario)");
                         } else {
                             jogador.adicionarItem(Item("Dica de Calculo", "Revela a dica da questao", 1, "DICA"));
@@ -296,6 +357,53 @@ void MapaExploracao::processarEventos(const sf::Event& evento, Jogador& jogador)
                 }
             }
         }
+    }
+}
+
+void MapaExploracao::atualizarPosicaoSprite(const sf::Vector2f& direcao, float dt) {
+    _spriteJogador.setPosition(_posicaoJogador);
+    _fallbackJogador.setPosition(_posicaoJogador);
+
+    // Determina a direção prioritária do olhar
+    if (std::abs(direcao.x) > std::abs(direcao.y)) {
+        if (direcao.x > 0.0f) _direcaoOlhar = DirecaoOlhar::DIREITA;
+        else if (direcao.x < 0.0f) _direcaoOlhar = DirecaoOlhar::ESQUERDA;
+    } else if (std::abs(direcao.y) > 0.0f) {
+        if (direcao.y > 0.0f) _direcaoOlhar = DirecaoOlhar::BAIXO;
+        else if (direcao.y < 0.0f) _direcaoOlhar = DirecaoOlhar::CIMA;
+    }
+
+    _emMovimento = (direcao.x != 0.0f || direcao.y != 0.0f);
+
+    if (_emMovimento) {
+        _tempoAnimacao += dt;
+        if (_tempoAnimacao >= 0.15f) {
+            _tempoAnimacao = 0.0f;
+            _frameAnimacao = (_frameAnimacao + 1) % 4;
+        }
+    } else {
+        _frameAnimacao = 0; // Frame de repouso
+        _tempoAnimacao = 0.0f;
+    }
+
+    if (_direcaoOlhar == DirecaoOlhar::BAIXO && _temTexturaFrente) {
+        _spriteJogador.setTexture(_texturaFrente);
+        _spriteJogador.setTextureRect(sf::IntRect(_frameAnimacao * 364, 0, 364, 507));
+        _spriteJogador.setScale(0.148f, 0.148f);
+        _spriteJogador.setOrigin(182.0f, 253.5f);
+    } else if (_direcaoOlhar == DirecaoOlhar::CIMA && _temTexturaTras) {
+        _spriteJogador.setTexture(_texturaTras);
+        _spriteJogador.setTextureRect(sf::IntRect(_frameAnimacao * 364, 0, 364, 507));
+        _spriteJogador.setScale(0.148f, 0.148f);
+        _spriteJogador.setOrigin(182.0f, 253.5f);
+    } else if (_temTexturaPersonagem) {
+        _spriteJogador.setTexture(_texturaPersonagem);
+        // Frames 0 a 3: Direita. Frames 4 a 7: Esquerda.
+        int baseFrame = (_direcaoOlhar == DirecaoOlhar::DIREITA) ? 0 : 4;
+        int indiceFrame = baseFrame + _frameAnimacao;
+        _spriteJogador.setTextureRect(sf::IntRect(indiceFrame * 638, 0, 638, 858));
+        _spriteJogador.setScale(0.0874f, 0.0874f);
+        _spriteJogador.setOrigin(319.0f, 429.0f);
     }
 }
 
@@ -335,7 +443,7 @@ void MapaExploracao::atualizar(float dt) {
         _posicaoJogador.y = novaPos.y;
     }
 
-    _spriteJogador.setPosition(_posicaoJogador);
+    atualizarPosicaoSprite(direcao, dt);
 
     // Câmera segue diretamente o jogador (sem suavização e sem clamp)
     _camera.setCenter(_posicaoJogador);
@@ -346,7 +454,7 @@ void MapaExploracao::atualizar(float dt) {
     if (_ambienteAtual == TipoAmbiente::CORREDOR) {
         float distPorta = std::hypot(_posicaoJogador.x - 500.0f, _posicaoJogador.y - 250.0f);
         if (distPorta < 65.0f) {
-            _textoInteracao.setString("[ENTER ou ESPACO] Entrar na Sala 101");
+            _textoInteracao.setString("[ENTER ou ESPACO] Entrar na Sala");
             _textoInteracao.setPosition(370.0f, 290.0f);
         }
     } else if (_ambienteAtual == TipoAmbiente::SALA_DE_AULA) {
@@ -418,8 +526,14 @@ void MapaExploracao::renderizarComHUD(sf::RenderWindow& janela, int pontuacao, i
         janela.draw(_chaoSala);
         janela.draw(_lousa);
         janela.draw(_textoLousa);
-        for (const auto& carteira : _carteiras) {
-            janela.draw(carteira);
+        if (_temTexturaCarteira) {
+            for (const auto& sp : _spritesCarteiras) {
+                janela.draw(sp);
+            }
+        } else {
+            for (const auto& carteira : _carteiras) {
+                janela.draw(carteira);
+            }
         }
         janela.draw(_mesaProfessor);
         janela.draw(_placaProva);
@@ -427,8 +541,8 @@ void MapaExploracao::renderizarComHUD(sf::RenderWindow& janela, int pontuacao, i
         janela.draw(_placaSaida);
     }
 
-    // Paredes
-    for (const auto& parede : _paredes) {
+    // Paredes estruturais
+    for (const auto& parede : _paredesVisuais) {
         sf::RectangleShape p(sf::Vector2f(parede.width, parede.height));
         p.setPosition(parede.left, parede.top);
         p.setFillColor(sf::Color(65, 75, 100));
@@ -443,7 +557,11 @@ void MapaExploracao::renderizarComHUD(sf::RenderWindow& janela, int pontuacao, i
     }
 
     // Jogador no mundo
-    janela.draw(_spriteJogador);
+    if (_temTexturaPersonagem) {
+        janela.draw(_spriteJogador);
+    } else {
+        janela.draw(_fallbackJogador);
+    }
 
     // Texto de interação no mundo (perto do objeto/porta)
     if (!_textoInteracao.getString().isEmpty()) {
@@ -489,6 +607,7 @@ void MapaExploracao::resetarPosicaoJogador() {
     trocarAmbiente(TipoAmbiente::CORREDOR);
     _posicaoJogador = sf::Vector2f(500.0f, 350.0f);
     _spriteJogador.setPosition(_posicaoJogador);
+    _fallbackJogador.setPosition(_posicaoJogador);
     _camera.setCenter(_posicaoJogador);
 }
 

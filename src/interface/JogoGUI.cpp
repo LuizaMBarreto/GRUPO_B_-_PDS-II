@@ -1,4 +1,5 @@
 #include "interface/JogoGUI.hpp"
+#include "Habilidade.hpp"
 #include "BancoQuestoes.hpp"
 #include <iostream>
 #include <exception>
@@ -100,14 +101,48 @@ void JogoGUI::processarEventos() {
                     if (evento.type == sf::Event::KeyPressed &&
                        (evento.key.code == sf::Keyboard::Return || evento.key.code == sf::Keyboard::Space)) {
 
+                       
                         if (_batalhaGUI->getResultado() == ResultadoBatalha::VITORIA) {
                             _semestre->somarPontuacao(25);
+
+                            int provaConcluida = (int)_semestre->getIndiceProvaAtual() + 1;
+
+                            if (provaConcluida == 1) {
+                                Habilidade habilidade(
+                                    "Regra da Cadeia",
+                                    "Aplica a regra da cadeia",
+                                    35,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            } else if (provaConcluida == 2) {
+                                Habilidade habilidade(
+                                    "Integracao por Partes",
+                                    "Aplica integracao por partes",
+                                    35,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            } else if (provaConcluida == 3) {
+                                Habilidade habilidade(
+                                    "Regra de L'Hopital",
+                                    "Aplica a regra de L'Hopital",
+                                    30,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            }
+
                             if (_semestre->temProximaProva()) {
                                 _semestre->gerenciarFilaDeTurnos();
-                                _mapaExploracao->setProvaAtual((int)_semestre->getIndiceProvaAtual() + 1);
+                                _mapaExploracao->setProvaAtual(
+                                    (int)_semestre->getIndiceProvaAtual() + 1
+                                );
                                 _estadoAtual = EstadoJogo::EXPLORACAO;
                             } else {
-                                // Finalizou todas as 4 provas do semestre!
                                 _estadoAtual = EstadoJogo::VITORIA;
                             }
                         } else if (_batalhaGUI->getResultado() == ResultadoBatalha::DERROTA) {

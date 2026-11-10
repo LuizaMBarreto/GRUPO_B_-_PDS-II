@@ -19,6 +19,13 @@ struct ItemNoMapa {
     TipoAmbiente ambiente;
 };
 
+enum class DirecaoOlhar {
+    BAIXO,   // Frente
+    CIMA,    // Trás
+    ESQUERDA,
+    DIREITA
+};
+
 /**
  * @class MapaExploracao
  * @brief Gerencia a movimentação no mapa 2D, transições de ambiente (Corredor <-> Sala),
@@ -30,9 +37,24 @@ private:
     TipoAmbiente _ambienteAtual;
 
     // Jogador no mapa
-    sf::RectangleShape _spriteJogador;
+    sf::Sprite _spriteJogador;
+    sf::RectangleShape _fallbackJogador;
+    sf::Texture _texturaPersonagem;
+    sf::Texture _texturaFrente;
+    sf::Texture _texturaTras;
+    sf::Texture _texturaCarteira;
+    bool _temTexturaPersonagem;
+    bool _temTexturaFrente;
+    bool _temTexturaTras;
+    bool _temTexturaCarteira;
     sf::Vector2f _posicaoJogador;
     float _velocidadeJogador;
+
+    // Animação do Jogador
+    int _frameAnimacao;
+    float _tempoAnimacao;
+    DirecaoOlhar _direcaoOlhar;
+    bool _emMovimento;
 
     // Câmera dinâmica
     sf::View _camera;
@@ -43,6 +65,7 @@ private:
 
     // Paredes e colisões ativas do ambiente atual
     std::vector<sf::FloatRect> _paredes;
+    std::vector<sf::FloatRect> _paredesVisuais;
 
     // Elementos do Corredor
     sf::RectangleShape _chaoCorredor;
@@ -54,6 +77,7 @@ private:
     sf::RectangleShape _lousa;
     sf::Text _textoLousa;
     std::vector<sf::RectangleShape> _carteiras;
+    std::vector<sf::Sprite> _spritesCarteiras;
     sf::RectangleShape _mesaProfessor;
     sf::Text _placaProva;
     sf::RectangleShape _portaSaidaSala;
@@ -78,6 +102,7 @@ private:
     void configurarSalaDeAula();
     void trocarAmbiente(TipoAmbiente novo);
     void adicionarItens();
+    void atualizarPosicaoSprite(const sf::Vector2f& direcao, float dt);
     bool verificarColisao(const sf::FloatRect& novaCaixa) const;
 
 public:
