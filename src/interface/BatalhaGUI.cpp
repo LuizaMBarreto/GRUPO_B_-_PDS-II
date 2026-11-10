@@ -233,14 +233,14 @@ void BatalhaGUI::atualizarSubmenu() {
             _textosSubmenu.push_back(t);
         }
 
-        std::string descricoes;
-        for (size_t i = 0; i < habs.size(); ++i) {
-            if (i > 0) descricoes += "\n";
-            descricoes += std::to_string(i + 1) + ". " + habs[i].getDescricao();
+        if (_indiceSubmenuSelecionado >= 0 && _indiceSubmenuSelecionado < (int)habs.size()) {
+            const auto& habSel = habs[_indiceSubmenuSelecionado];
+            _textoMensagemLog1.setString("Habilidade: " + habSel.getNome());
+            _textoMensagemLog2.setString("Descricao: " + habSel.getDescricao());
+            _textoMensagemLog3.setString(habSel.afetaInimigo()
+                ? ("Efeito: -" + std::to_string(habSel.getEfeitoValor()) + " HP de resolucao na questao")
+                : ("Efeito: -" + std::to_string(habSel.getEfeitoValor()) + " pontos de cansaco do estudante"));
         }
-        _textoMensagemLog1.setString(descricoes);
-        _textoMensagemLog2.setString("");
-        _textoMensagemLog3.setString("");
 
         
     } else if (_modo == ModoBatalha::SELECIONANDO_ITEM) {
