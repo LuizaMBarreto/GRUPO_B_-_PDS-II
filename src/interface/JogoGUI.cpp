@@ -97,53 +97,49 @@ void JogoGUI::processarEventos() {
                        (evento.key.code == sf::Keyboard::Return || evento.key.code == sf::Keyboard::Space)) {
 
                        
-if (_batalhaGUI->getResultado() == ResultadoBatalha::VITORIA) {
-    _semestre->somarPontuacao(25);
+                        if (_batalhaGUI->getResultado() == ResultadoBatalha::VITORIA) {
+                            _semestre->somarPontuacao(25);
 
-    int provaConcluida = (int)_semestre->getIndiceProvaAtual() + 1;
+                            int provaConcluida = (int)_semestre->getIndiceProvaAtual() + 1;
 
-    if (provaConcluida == 1) {
-        Habilidade habilidade(
-            "Regra da Cadeia",
-            "Aplica a regra da cadeia",
-            35,
-            true
-        );
-        _jogador->adicionarHabilidade(habilidade);
-        _semestre->getJogador().adicionarHabilidade(habilidade);
+                            if (provaConcluida == 1) {
+                                Habilidade habilidade(
+                                    "Regra da Cadeia",
+                                    "Aplica a regra da cadeia",
+                                    35,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            } else if (provaConcluida == 2) {
+                                Habilidade habilidade(
+                                    "Integracao por Partes",
+                                    "Aplica integracao por partes",
+                                    35,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            } else if (provaConcluida == 3) {
+                                Habilidade habilidade(
+                                    "Regra de L'Hopital",
+                                    "Aplica a regra de L'Hopital",
+                                    30,
+                                    true
+                                );
+                                _jogador->adicionarHabilidade(habilidade);
+                                _semestre->getJogador().adicionarHabilidade(habilidade);
+                            }
 
-    } else if (provaConcluida == 2) {
-        Habilidade habilidade(
-            "Integracao por Partes",
-            "Aplica integracao por partes",
-            35,
-            true
-        );
-        _jogador->adicionarHabilidade(habilidade);
-        _semestre->getJogador().adicionarHabilidade(habilidade);
-
-    } else if (provaConcluida == 3) {
-        Habilidade habilidade(
-            "Regra de L'Hopital",
-            "Aplica a regra de L'Hopital",
-            30,
-            true
-        );
-        _jogador->adicionarHabilidade(habilidade);
-        _semestre->getJogador().adicionarHabilidade(habilidade);
-    }
-
-    if (_semestre->temProximaProva()) {
-        _semestre->gerenciarFilaDeTurnos();
-        _mapaExploracao->setProvaAtual(
-            (int)_semestre->getIndiceProvaAtual() + 1
-        );
-        _estadoAtual = EstadoJogo::EXPLORACAO;
-    } else {
-        _estadoAtual = EstadoJogo::VITORIA;
-    }
-}
-
+                            if (_semestre->temProximaProva()) {
+                                _semestre->gerenciarFilaDeTurnos();
+                                _mapaExploracao->setProvaAtual(
+                                    (int)_semestre->getIndiceProvaAtual() + 1
+                                );
+                                _estadoAtual = EstadoJogo::EXPLORACAO;
+                            } else {
+                                _estadoAtual = EstadoJogo::VITORIA;
+                            }
                         } else if (_batalhaGUI->getResultado() == ResultadoBatalha::DERROTA) {
                             _estadoAtual = EstadoJogo::GAME_OVER;
                         }
