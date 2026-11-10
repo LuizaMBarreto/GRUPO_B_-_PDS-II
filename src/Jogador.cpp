@@ -50,6 +50,11 @@ void Jogador::alterarCansaco(int delta) {
     }
 }
 
+
+void Jogador::resetarCansaco() {  
+    _cansaco = 0;
+}
+
 void Jogador::adicionarHabilidade(const Habilidade& habilidade) {
     _habilidades.push_back(habilidade);
 }

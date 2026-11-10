@@ -84,6 +84,11 @@ public:
     void alterarCansaco(int delta);
 
     /**
+     * @brief Zera o cansaço do jogador (usado ao concluir uma prova).
+     */
+    void resetarCansaco();
+
+    /**
      * @brief Adiciona uma nova habilidade ao jogador.
      * @param habilidade Objeto da classe Habilidade a ser adicionado.
      */

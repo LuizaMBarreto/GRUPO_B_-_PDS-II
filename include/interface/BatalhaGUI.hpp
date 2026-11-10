@@ -4,10 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "Jogador.hpp"
-#include "Questao.hpp"
-#include "Prova.hpp"
-#include "interface/Botao.hpp"
+#include "../Jogador.hpp"
+#include "../Questao.hpp"
+#include "../Prova.hpp"
+#include "Botao.hpp"
 
 enum class ResultadoBatalha {
     EM_ANDAMENTO,

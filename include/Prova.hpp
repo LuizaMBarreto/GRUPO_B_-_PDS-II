@@ -2,6 +2,7 @@
 #ifndef PROVA_HPP
 #define PROVA_HPP
 #include <vector>
+#include <cstddef>
 #include "Questao.hpp"
 
 /**
@@ -52,8 +53,12 @@ int getDificuldade() const;
 * @brief obtem a lista de questoes pertencentes a essa prova.
 * @return vetor que contém as questoes.
 */
-std::vector <Questao> getQuestoes() const;
-
+const std::vector <Questao>& getQuestoes() const;
+/**
+ * @brief Acesso seguro a uma questão pelo índice.
+ * @throws IndiceInvalidoException se indice >= quantidade de questões.
+ */
+const Questao& getQuestao(std::size_t indice) const;
 
 };
 
